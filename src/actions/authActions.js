@@ -1,6 +1,6 @@
 import axios from 'axios';
 import setAuthToken from '../utils/setAuthToken';
-import jwt_decode from 'jwt-decode';
+//import jwt_decode from 'jwt-decode';
 import { Actions } from 'react-native-router-flux';
 import { Alert } from 'react-native';
 import { EMAIL_CHANGED,PASSWORD_CHANGED, LOGIN, LOGIN_USER_SUCCESS, LOGIN_USER_FAILED, LOGIN_REMEMBER_ME } from './types';
