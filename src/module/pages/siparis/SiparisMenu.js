@@ -26,7 +26,7 @@ class SiparisMenu extends Component {
 
     render() {
         const {menus} = this.props;
-        
+        console.log("menusYYYYYYYYYYYYYYyyyyyyyyyyy",menus);
         return (
             <View style={styles.container}>
                 <View style={styles.banner}>
@@ -71,10 +71,11 @@ const styles = StyleSheet.create({
 })
 
 const mapStateToProps = state => {
-    console.log('state-------------------',state.menu);
+   
      return{
-        menu:state.menus
+        menus:state.menu.menus
      }
 };
 
 export default connect(mapStateToProps, { getMenuList })(SiparisMenu);
+

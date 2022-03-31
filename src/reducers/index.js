@@ -5,6 +5,6 @@ import SelectedMenuReducer from './selectedMenuReducer';
 
 export default combineReducers({
     auth:AuthReducer,
-    menus:MenuReducer,
+    menu:MenuReducer,
     selected:SelectedMenuReducer,
 });
