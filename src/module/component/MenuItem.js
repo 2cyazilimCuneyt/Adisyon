@@ -1,19 +1,32 @@
 import React, { Component } from 'react'
 import { Text, StyleSheet, View, TouchableOpacity } from 'react-native';
-import { Card } from './Card';
+import { MenuCard } from './MenuCard';
 import * as actions from '../../actions';
 import { connect } from  'react-redux';
 
 class MenuItem extends Component {
+
+    onPressed(){
+        const {menu, selected} = this.props;
+
+        selected ? this.props.deselectMenu() : this.props.selectMenu(menu)
+    }
     
     render() {
-        const {menu} = this.props;
-        console.log(this.props);
+        const {menu, selected,} = this.props;
+        
+        const menusProduct = selected ? (
+            <View>
+                <Text>{menu.name}</Text>
+            </View>
+        ) : null;
+
         return (
-            <TouchableOpacity onPress={()=> this.props.selectMenu(menu)}>
-                <Card>
+            <TouchableOpacity onPress={this.onPressed.bind(this)}>
+                <MenuCard>
                     <Text>{menu.name}</Text>
-                </Card>
+                </MenuCard>
+                {menusProduct}
             </TouchableOpacity>
         )
     }
@@ -21,8 +34,11 @@ class MenuItem extends Component {
 
 const styles = StyleSheet.create({})
 
-const mapStateToProps = state => {
-    return {}
+const mapStateToProps = (state, props) => {
+    const selected = state.selectedMenu && state.selectedMenu.menuId === props.menu.menuId;
+    return {
+        selected,
+    }
 }
 
 export default connect(mapStateToProps, actions)(MenuItem);

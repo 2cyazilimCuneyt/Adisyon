@@ -1,4 +1,4 @@
-import { MENU_LIST, MENU_FAILED, MENU_SUCCESS } from '../actions/types'
+import { MENU_LIST } from '../actions/types'
     /*  */
     const INITIAL_STATE={
        menus: null

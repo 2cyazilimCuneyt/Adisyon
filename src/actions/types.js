@@ -9,5 +9,16 @@ export const MENU_SUCCESS = 'menu_success';
 export const MENU_FAILED = 'menu_failed';
 export const MENU_LIST = 'menu_list';
 
+export const PRODUCT_LIST = 'product_list';
+
 export const SELECTED_MENU = 'selected_menu';
 export const DESELECTED_MENU = 'deselected_menu';
+
+
+export const SELECTED_PRODUCT = 'selected_product';
+export const DESELECTED_PRODUCT = 'deselected_product';
+
+
+
+
+

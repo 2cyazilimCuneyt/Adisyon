@@ -2,10 +2,12 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import { Text, StyleSheet, View, Image, ScrollView, Dimensions , FlatList, TouchableOpacity, Button } from 'react-native';
 import { connect } from 'react-redux';
-import { getMenuList } from '../../../actions';
+import * as actions from '../../../actions';
 import {Actions} from 'react-native-router-flux';
 import AsyncStorage from '@react-native-community/async-storage';
 import MenuItem from '../../component/MenuItem';
+import Input from '../../component/Input';
+import ProductItem from '../../component/ProductItem';
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
@@ -13,20 +15,29 @@ const height = Dimensions.get('window').height;
 class SiparisMenu extends Component {
    UNSAFE_componentWillMount(){
         this.props.getMenuList();
+        this.props.getProductList();
         console.log('1');
    }
 
-    renderItem ({item}) {
+    renderMenuItem ({item}) {
         
         return (
             <MenuItem menu = {item} />
-            
+        )
+    }
+
+    renderProductItem ({item}) {
+        
+        return (
+            <ProductItem product = {item} />
         )
     }
 
     render() {
-        const {menus} = this.props;
-        console.log("menusYYYYYYYYYYYYYYyyyyyyyyyyy",menus);
+        const {menus, products} = this.props;
+
+        
+
         return (
             <View style={styles.container}>
                 <View style={styles.banner}>
@@ -37,12 +48,29 @@ class SiparisMenu extends Component {
                         <Text>Yeni Sipariş / Masa Numarası </Text>
                     </View>
                 </View>
-                <FlatList
-                    data={menus}
-                    renderItem={this.renderItem}
-                    keyExtractor={(item)=> item.menuId}
-                />
-                <Button onPress={()=>console.log('menus--------------->', this.props)} title="tıkla" ></Button>
+                <View style={styles.menuContainer}>
+                    <FlatList
+                        data={menus}
+                        renderItem={this.renderMenuItem}
+                        numColumns="12"
+                        keyExtractor={(item)=> item.menuId}
+                        style={styles.menuContainerBox}
+                    />
+                </View>
+                <View style={styles.productContainer}>
+                    <View>
+                        <Input full placeholder="Menüde Arama Yapın..."/>
+                    </View>
+
+                    
+                    <FlatList
+                        data={products}
+                        renderItem={this.renderProductItem}
+                        numColumns="2"
+                        keyExtractor={(item)=> item.productId}
+                        style={styles.productContainerBox}
+                    />
+                </View>
             </View>
         )
     }
@@ -68,14 +96,21 @@ const styles = StyleSheet.create({
         alignItems:'center',
         width:width*0.85
     },
+    menuContainer:{
+        flex:1,
+    },
+    productContainer:{
+        flex:9
+    }
 })
 
 const mapStateToProps = state => {
-   
+   console.log('productsssssssssssssssssssss', state.product )
      return{
-        menus:state.menu.menus
+        menus:state.menu.menus,
+        products:state.product,
      }
 };
 
-export default connect(mapStateToProps, { getMenuList })(SiparisMenu);
+export default connect(mapStateToProps, actions)(SiparisMenu);
 
