@@ -18,7 +18,7 @@ export const DESELECTED_MENU = 'deselected_menu';
 export const SELECTED_PRODUCT = 'selected_product';
 export const DESELECTED_PRODUCT = 'deselected_product';
 
-
+export const ORDER_LIST = 'order_list';
 
 
 

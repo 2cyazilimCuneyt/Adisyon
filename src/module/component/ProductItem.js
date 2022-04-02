@@ -57,7 +57,7 @@ class ProductItem extends Component {
                         <Image source={require('../assets/onay.png')} />
                         <Text style={{fontSize:19, color:'#fff', fontWeight:'600'}}>Kaydet</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.buttonBox1}>
+                    <TouchableOpacity style={styles.buttonBox1} onPress={()=> Actions.SiparisDetay()}>
                         <View style={{borderColor:'#fff', borderWidth:2,      justifyContent:'center', alignItems:'center',height:30,
                         width:30, borderRadius:15,}}>
                             <Text style={{fontSize:16, color:'#fff', fontWeight:'600'}}>3</Text>

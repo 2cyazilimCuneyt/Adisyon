@@ -10,6 +10,7 @@ import Mutfak from '../pages/mutfak/Mutfak';
 import Siparis from '../pages/siparis/Siparis';
 import SiparisMenu from '../pages/siparis/SiparisMenu';
 import ProductItem from '../component/ProductItem';
+import SiparisDetay from '../pages/siparis/SiparisDetay';
 
 export default class DrawerNavigator extends Component {
     render() {
@@ -21,11 +22,11 @@ export default class DrawerNavigator extends Component {
                             <Scene key="LoginForm" component={LoginForm} hideNavBar/>
                             {/*  <Scene key="BosSayfa" component={BosSayfa} hideNavBar/> */}
                             <Scene key="Anasayfa" component={Anasayfa} hideNavBar />
-                            
                             <Scene key="Siparis" component={Siparis} hideNavBar />
                             <Scene key="SiparisMenu" component={SiparisMenu} hideNavBar />
                             <Scene key="Mutfak" component={Mutfak} hideNavBar />
                             <Scene key="ProductItem" component={ProductItem} hideNavBar />
+                            <Scene key="SiparisDetay" component={SiparisDetay} hideNavBar />
                         </Drawer>
                     </Scene>
                 </Stack>
