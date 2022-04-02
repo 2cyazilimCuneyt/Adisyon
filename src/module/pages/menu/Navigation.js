@@ -5,7 +5,7 @@ import { Actions } from 'react-native-router-flux';
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
 
-export default class Menu extends Component {
+export default class Navigation extends Component {
     render() {
         return (
             <View style={styles.container}>
@@ -21,7 +21,7 @@ export default class Menu extends Component {
                             </View>
                             <Image/>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.menuBox}  onPress={() => Actions.Siparis()}>
+                        <TouchableOpacity style={styles.menuBox}  onPress={() => Actions.Table()}>
                             <View style={{flexDirection:'row',alignItems:'center'}}>
                                 <Image/>
                                 <Text>Siparişler</Text>

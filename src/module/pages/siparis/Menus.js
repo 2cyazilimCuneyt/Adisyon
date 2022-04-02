@@ -9,7 +9,7 @@ import Input from '../../component/Input';
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
 
-class SiparisMenu extends Component {
+class Menus extends Component {
    UNSAFE_componentWillMount(){
         this.props.getMenuList();
    }
@@ -22,11 +22,11 @@ class SiparisMenu extends Component {
 
          if (selectedMenu.length == 0) {
             this.props.getProductList(menuId);
-            Actions.ProductItem();
+            Actions.Product();
          }
         
     }
-
+    
     render() {
         const {menus} = this.props;
 
@@ -104,5 +104,5 @@ const mapStateToProps = state => {
      }
 };
 
-export default connect(mapStateToProps, actions)(SiparisMenu);
+export default connect(mapStateToProps, actions)(Menus);
 

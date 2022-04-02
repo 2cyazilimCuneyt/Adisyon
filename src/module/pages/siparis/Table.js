@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Text, StyleSheet, View, Image, TouchableOpacity, Button, Dimensions } from 'react-native';
 import { FlatList, ScrollView } from 'react-native-gesture-handler';
 import { Actions } from 'react-native-router-flux';
-import SiparisMenu from './SiparisMenu';
+import Menus from './Menus';
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
@@ -20,38 +20,38 @@ const data = [
     {name: 'Masa 10', key:'10'},
 ];
 
-class Siparis extends Component {
+class Table extends Component {
     MasaSec(x){
         switch (x) {
             case '1':
-                Actions.SiparisMenu(x);
+                Actions.Menus(x);
                 break;
             case '2':
-                Actions.SiparisMenu(x);
+                Actions.Menus(x);
                 break;
             case '3':
-                Actions.SiparisMenu(x);
+                Actions.Menus(x);
                 break;
             case '4':
-                Actions.SiparisMenu(x);
+                Actions.Menus(x);
                 break;
             case '5':
-                Actions.SiparisMenu(x);
+                Actions.Menus(x);
                 break;
             case '6':
-                Actions.SiparisMenu(x);
+                Actions.Menus(x);
                 break;
             case '7':
-                Actions.SiparisMenu(x);
+                Actions.Menus(x);
                 break;
             case '8':
-                Actions.SiparisMenu(x);
+                Actions.Menus(x);
                 break;
             case '9':
-                Actions.SiparisMenu(x);
+                Actions.Menus(x);
                 break;
             case '10':
-                Actions.SiparisMenu(x);
+                Actions.Menus(x);
                 break;
         }
     }
@@ -145,4 +145,4 @@ const styles = StyleSheet.create({
 })
 
 
-export default Siparis;
+export default Table;

@@ -5,12 +5,13 @@ import { Router, Scene, Drawer, Stack } from 'react-native-router-flux';
 import BosSayfa from '../pages/BosSayfa';
 import Anasayfa from '../pages/anasayfa/Anasayfa';
 import LoginForm from '../pages/login/LoginForm';
-import Menu from '../pages/menu/Menu';
+import Navigation from '../pages/menu/Navigation';
 import Mutfak from '../pages/mutfak/Mutfak';
-import Siparis from '../pages/siparis/Siparis';
-import SiparisMenu from '../pages/siparis/SiparisMenu';
-import ProductItem from '../component/ProductItem';
-import SiparisDetay from '../pages/siparis/SiparisDetay';
+import Table from '../pages/siparis/Table';
+import Menus from '../pages/siparis/Menus';
+import Product from '../pages/siparis/Product';
+import Order from '../pages/siparis/Order';
+import OrderDetail from '../pages/siparis/OrderDetail';
 
 export default class DrawerNavigator extends Component {
     render() {
@@ -18,15 +19,16 @@ export default class DrawerNavigator extends Component {
             <Router>
                 <Stack key="root" hideNavBar initial>
                     <Scene key="main" hideNavBar>  
-                        <Drawer key="drawer" contentComponent={Menu} drawerPosition='left' drawerWidth={'80%'} initial>
+                        <Drawer key="drawer" contentComponent={Navigation} drawerPosition='left' drawerWidth={'80%'} initial>
                             <Scene key="LoginForm" component={LoginForm} hideNavBar/>
                             {/*  <Scene key="BosSayfa" component={BosSayfa} hideNavBar/> */}
                             <Scene key="Anasayfa" component={Anasayfa} hideNavBar />
-                            <Scene key="Siparis" component={Siparis} hideNavBar />
-                            <Scene key="SiparisMenu" component={SiparisMenu} hideNavBar />
+                            <Scene key="Table" component={Table} hideNavBar />
+                            <Scene key="Menus" component={Menus} hideNavBar />
                             <Scene key="Mutfak" component={Mutfak} hideNavBar />
-                            <Scene key="ProductItem" component={ProductItem} hideNavBar />
-                            <Scene key="SiparisDetay" component={SiparisDetay} hideNavBar />
+                            <Scene key="Product" component={Product} hideNavBar />
+                            <Scene key="Order" component={Order} hideNavBar />
+                            <Scene key="OrderDetail" component={OrderDetail} hideNavBar />
                         </Drawer>
                     </Scene>
                 </Stack>

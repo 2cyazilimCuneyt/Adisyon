@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, StyleSheet, View, TouchableOpacity, FlatList, Dimensions, Image } from 'react-native';
+import { Text, StyleSheet, View, TouchableOpacity, FlatList, Dimensions, Image, Button } from 'react-native';
 import * as actions from '../../../actions';
 import { connect } from  'react-redux';
 import {Actions} from 'react-native-router-flux';
@@ -7,9 +7,9 @@ import {Actions} from 'react-native-router-flux';
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
 
-class SiparisDetay extends Component {
+class Order extends Component {
     render() {
-    //     const {orders} = this.props;
+        //const {orders} = this.props;
         return (
             <View style={styles.container}>
             <View style={styles.banner}>
@@ -20,7 +20,7 @@ class SiparisDetay extends Component {
                     <Text>Yeni Sipariş / Masa Numarası </Text>
                 </View>
             </View>
-
+            <Button onPress={()=> Actions.OrderDetail()} title="Sipariş içerik"></Button>
             {/* <FlatList
                 data={orders}
                 renderItem={({item, index}) =>
@@ -141,8 +141,9 @@ buttonBox1:{
 })
 
 const mapStateToProps = state => {
-return {
-}
+    return {
+        //orders: state.order.orders
+    }
 }
 
-export default connect(mapStateToProps, actions)(SiparisDetay);
+export default connect(mapStateToProps, actions)(Order);

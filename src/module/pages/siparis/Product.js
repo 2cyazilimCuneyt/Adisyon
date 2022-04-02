@@ -1,15 +1,15 @@
 import React, { Component } from 'react'
 import { Text, StyleSheet, View, TouchableOpacity, FlatList, Dimensions, Image } from 'react-native';
-import { ProductCard } from './ProductCard';
-import * as actions from '../../actions';
+import { ProductCard } from '../../component/ProductCard';
+import * as actions from '../../../actions';
 import { connect } from  'react-redux';
-import Input from './Input';
+import Input from '../../component/Input';
 import {Actions} from 'react-native-router-flux';
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
 
-class ProductItem extends Component {
+class Product extends Component {
    
     render() {
         const {products} = this.props;
@@ -54,10 +54,10 @@ class ProductItem extends Component {
                 />
                 <View style={styles.buttonContainer}>
                     <TouchableOpacity style={styles.buttonBox}>
-                        <Image source={require('../assets/onay.png')} />
+                        <Image source={require('../../assets/onay.png')} />
                         <Text style={{fontSize:19, color:'#fff', fontWeight:'600'}}>Kaydet</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.buttonBox1} onPress={()=> Actions.SiparisDetay()}>
+                    <TouchableOpacity style={styles.buttonBox1} onPress={()=> Actions.Order()}>
                         <View style={{borderColor:'#fff', borderWidth:2,      justifyContent:'center', alignItems:'center',height:30,
                         width:30, borderRadius:15,}}>
                             <Text style={{fontSize:16, color:'#fff', fontWeight:'600'}}>3</Text>
@@ -154,4 +154,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, actions)(ProductItem);
+export default connect(mapStateToProps, actions)(Product);
