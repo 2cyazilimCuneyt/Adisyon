@@ -14,14 +14,15 @@ const ProductCard = (props) => {
 }
 const styles = StyleSheet.create({
     cardContainer:{
-        width: width*0.3,
+        width: width*0.4,
         height: height*0.15,
-        backgroundColor:'#fff',
+        backgroundColor:'#F5F5F5',
         borderRadius:10,
-        justifyContent:'center',
-        alignItems:'center',
         marginHorizontal:10,
-        marginVertical:10
+        marginVertical:10,
+        flexDirection:'row',
+        justifyContent:'space-between',
+        alignItems:'center',
     }
 })
 

@@ -53,6 +53,6 @@ const styles = StyleSheet.create({
         marginBottom:0
     },
     full:{
-        width: width*0.75,
+        width: width*0.85,
     }
 })

@@ -9,6 +9,7 @@ import Menu from '../pages/menu/Menu';
 import Mutfak from '../pages/mutfak/Mutfak';
 import Siparis from '../pages/siparis/Siparis';
 import SiparisMenu from '../pages/siparis/SiparisMenu';
+import ProductItem from '../component/ProductItem';
 
 export default class DrawerNavigator extends Component {
     render() {
@@ -24,6 +25,7 @@ export default class DrawerNavigator extends Component {
                             <Scene key="Siparis" component={Siparis} hideNavBar />
                             <Scene key="SiparisMenu" component={SiparisMenu} hideNavBar />
                             <Scene key="Mutfak" component={Mutfak} hideNavBar />
+                            <Scene key="ProductItem" component={ProductItem} hideNavBar />
                         </Drawer>
                     </Scene>
                 </Stack>

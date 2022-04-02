@@ -4,10 +4,7 @@ import { Text, StyleSheet, View, Image, ScrollView, Dimensions , FlatList, Touch
 import { connect } from 'react-redux';
 import * as actions from '../../../actions';
 import {Actions} from 'react-native-router-flux';
-import AsyncStorage from '@react-native-community/async-storage';
-import MenuItem from '../../component/MenuItem';
 import Input from '../../component/Input';
-import ProductItem from '../../component/ProductItem';
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
@@ -15,28 +12,23 @@ const height = Dimensions.get('window').height;
 class SiparisMenu extends Component {
    UNSAFE_componentWillMount(){
         this.props.getMenuList();
-        this.props.getProductList();
-        console.log('1');
    }
 
-    renderMenuItem ({item}) {
-        
-        return (
-            <MenuItem menu = {item} />
-        )
-    }
+   onPressed = (menuId) =>{
+        const selectedMenu = this.props.menus.filter( item => {
+            return item.parentId ===  menuId;
 
-    renderProductItem ({item}) {
+         });
+
+         if (selectedMenu.length == 0) {
+            this.props.getProductList(menuId);
+            Actions.ProductItem();
+         }
         
-        return (
-            <ProductItem product = {item} />
-        )
     }
 
     render() {
-        const {menus, products} = this.props;
-
-        
+        const {menus} = this.props;
 
         return (
             <View style={styles.container}>
@@ -48,29 +40,22 @@ class SiparisMenu extends Component {
                         <Text>Yeni Sipariş / Masa Numarası </Text>
                     </View>
                 </View>
-                <View style={styles.menuContainer}>
-                    <FlatList
-                        data={menus}
-                        renderItem={this.renderMenuItem}
-                        numColumns="12"
-                        keyExtractor={(item)=> item.menuId}
-                        style={styles.menuContainerBox}
-                    />
-                </View>
-                <View style={styles.productContainer}>
-                    <View>
-                        <Input full placeholder="Menüde Arama Yapın..."/>
-                    </View>
 
-                    
-                    <FlatList
-                        data={products}
-                        renderItem={this.renderProductItem}
-                        numColumns="2"
-                        keyExtractor={(item)=> item.productId}
-                        style={styles.productContainerBox}
-                    />
+                <View>
+                    <Input full placeholder="Menüde Arama Yapın..."/>
                 </View>
+                <FlatList
+                    data={menus}
+                    renderItem={({item, index}) =>
+                        (<View>
+                            <TouchableOpacity style={styles.cardContainer} onPress={()=>this.onPressed(item.menuId)}>
+                                <Text>{item.name}</Text>
+                            </TouchableOpacity>
+                        </View>)}
+                    numColumns="2"
+                    keyExtractor={(item)=> item.menuId}
+                    style={styles.menuContainerBox}
+                />
             </View>
         )
     }
@@ -88,7 +73,8 @@ const styles = StyleSheet.create({
         backgroundColor:'#ff554a',
         height:100,
         paddingTop:Platform.OS === 'ios' ? 50 : 20,
-        alignItems:'center'
+        alignItems:'center',
+        marginBottom:25
     },
     bannerContainer:{
         flexDirection:'row',
@@ -96,19 +82,25 @@ const styles = StyleSheet.create({
         alignItems:'center',
         width:width*0.85
     },
-    menuContainer:{
-        flex:1,
-    },
-    productContainer:{
-        flex:9
+    cardContainer:{
+        width: width*0.4,
+        height: height*0.07,
+        backgroundColor:'#fff',
+        borderRadius:10,
+        justifyContent:'center',
+        alignItems:'center',
+        borderColor: '#ff554a',
+        borderWidth:1,
+        marginHorizontal:10,
+        marginVertical:10
     }
 })
 
 const mapStateToProps = state => {
-   console.log('productsssssssssssssssssssss', state.product )
+    console.log('state.product.products',state.product.products);
      return{
         menus:state.menu.menus,
-        products:state.product,
+        products: state.product.products
      }
 };
 

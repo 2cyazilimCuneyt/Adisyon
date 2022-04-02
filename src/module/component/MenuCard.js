@@ -1,4 +1,4 @@
-import { faHatWizard } from '@fortawesome/free-solid-svg-icons';
+
 import React, { Component } from 'react'
 import { Text, StyleSheet, View, Dimensions } from 'react-native'
 

@@ -1,7 +1,7 @@
 import { PRODUCT_LIST } from '../actions/types';
 
 const INITIAL_STATE={
-    products: null
+    products: []
  }
  
  export default (state = INITIAL_STATE, action) => {
