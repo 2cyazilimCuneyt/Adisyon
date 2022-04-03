@@ -9,7 +9,7 @@ const height = Dimensions.get('window').height;
 
 class Order extends Component {
     render() {
-        //const {orders} = this.props;
+        const {orders} = this.props;
         return (
             <View style={styles.container}>
             <View style={styles.banner}>
@@ -21,7 +21,7 @@ class Order extends Component {
                 </View>
             </View>
             <Button onPress={()=> Actions.OrderDetail()} title="Sipariş içerik"></Button>
-            {/* <FlatList
+            <FlatList
                 data={orders}
                 renderItem={({item, index}) =>
                     (<View>
@@ -43,7 +43,7 @@ class Order extends Component {
                 numColumns="2"
                 keyExtractor={(item)=> item.productId}
                 style={styles.menuContainerBox}
-            /> */}
+            /> 
             {/* <View style={styles.buttonContainer}>
                 <TouchableOpacity style={styles.buttonBox}>
                     <Image source={require('../assets/onay.png')} />
@@ -142,7 +142,7 @@ buttonBox1:{
 
 const mapStateToProps = state => {
     return {
-        //orders: state.order.orders
+        orders: state.order.orders
     }
 }
 
