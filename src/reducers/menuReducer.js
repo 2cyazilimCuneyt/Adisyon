@@ -5,7 +5,6 @@ import { MENU_LIST } from '../actions/types'
     }
     
     export default (state = INITIAL_STATE, action) => {
-        console.log("&&&&&&&&&&&&&&",MENU_LIST,action.type);
         switch (action.type){
             case MENU_LIST:
                 return {...state, menus: action.payload}

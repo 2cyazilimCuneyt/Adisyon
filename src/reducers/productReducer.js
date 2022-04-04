@@ -5,7 +5,6 @@ const INITIAL_STATE={
  }
  
  export default (state = INITIAL_STATE, action) => {
-     console.log("&&&&&&&&&&&&&&",PRODUCT_LIST,action.type);
      switch (action.type){
          case PRODUCT_LIST:
              return {...state, products: action.payload}

@@ -97,7 +97,6 @@ const styles = StyleSheet.create({
 })
 
 const mapStateToProps = state => {
-    console.log('state.product.products',state.product.products);
      return{
         menus:state.menu.menus,
         products: state.product.products

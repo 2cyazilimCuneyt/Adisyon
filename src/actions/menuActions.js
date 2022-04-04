@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { MENU_SUCCESS, MENU_FAILED, MENU_LIST } from './types';
+import { MENU_LIST } from './types';
 
 const API_URL = 'https://adisyon.crm2c.gen.tr/api/Product/GetMenuList';
 //let menu = [];

@@ -1,61 +1,24 @@
 import React, { Component } from 'react';
-import { Text, StyleSheet, View, Image, TouchableOpacity, Button, Dimensions } from 'react-native';
-import { FlatList, ScrollView } from 'react-native-gesture-handler';
+import { Text, StyleSheet, View, Image, TouchableOpacity, Button, Dimensions,FlatList, ScrollView } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import Menus from './Menus';
+import { connect } from 'react-redux';
+import {getRoomList, getTableList} from '../../../actions';
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
 
-const data = [
-    {name: 'Masa 1', key:'1'},
-    {name: 'Masa 2', key:'2'},
-    {name: 'Masa 3', key:'3'},
-    {name: 'Masa 4', key:'4'},
-    {name: 'Masa 5', key:'5'},
-    {name: 'Masa 6', key:'6'},
-    {name: 'Masa 7', key:'7'},
-    {name: 'Masa 8', key:'8'},
-    {name: 'Masa 9', key:'9'},
-    {name: 'Masa 10', key:'10'},
-];
 
 class Table extends Component {
-    MasaSec(x){
-        switch (x) {
-            case '1':
-                Actions.Menus(x);
-                break;
-            case '2':
-                Actions.Menus(x);
-                break;
-            case '3':
-                Actions.Menus(x);
-                break;
-            case '4':
-                Actions.Menus(x);
-                break;
-            case '5':
-                Actions.Menus(x);
-                break;
-            case '6':
-                Actions.Menus(x);
-                break;
-            case '7':
-                Actions.Menus(x);
-                break;
-            case '8':
-                Actions.Menus(x);
-                break;
-            case '9':
-                Actions.Menus(x);
-                break;
-            case '10':
-                Actions.Menus(x);
-                break;
-        }
+    UNSAFE_componentWillMount(){
+        this.props.getRoomList();
+        console.log('romssss 1')
+   }
+
+   onPressed = (roomId) =>{
+        this.props.getTableList(roomId);
     }
     render() {
+        const {rooms, tables} = this.props;
         return (
             <View style={styles.container}>
                 <View style={styles.banner}>
@@ -71,19 +34,30 @@ class Table extends Component {
                         <View>
                             <Text>Salon</Text>
                         </View>
-
                         <FlatList
-                         data={data}
+                            data={rooms}
+                            numColumns={12}
+                            renderItem={({item, index}) => (
+                                <View style={{flexDirection:'row',justifyContent:'space-between',alignItems:'center',marginVertical:10}}>
+                                    <TouchableOpacity style={styles.siparisBox} >
+                                        <Text style={styles.siparisText}> {item.name} </Text>
+                                    </TouchableOpacity>
+                                </View>
+                            )}
+                            keyExtractor={(item) => item.roomId}
+                        />
+                        <FlatList
+                         data={tables}
                          columnWrapperStyle={{justifyContent: 'space-between',width:width*0.8}}
                          numColumns={3}
                          renderItem={({item, index}) => (
                              <View style={{flexDirection:'row',justifyContent:'space-between',alignItems:'center',marginVertical:10}}>
-                                 <TouchableOpacity style={styles.siparisBox} onPress={() => this.MasaSec(item.key)}>
+                                 <TouchableOpacity style={styles.siparisBox} onPress={() => Actions.Menus()}>
                                      <Text style={styles.siparisText}> {item.name} </Text>
                                  </TouchableOpacity>
                              </View>
                          )}
-                         keyExtractor={(item) => item.key}/>
+                         keyExtractor={(item) => item.tableId}/>
 
                          <View style={{flexDirection:'row', alignItems:'center', justifyContent:'space-between', width:width*0.8, marginVertical:30}}>
                              <View style={{flexDirection:'row', alignItems:'center'}}>
@@ -144,5 +118,13 @@ const styles = StyleSheet.create({
     }
 })
 
+const mapToStateProps = state => {
+    console.log('roommmsssssssss', state.room.rooms);
+    console.log('tablesssssssss', state.table.tables);
+    return {
+        rooms: state.room.rooms,
+        tables: state.table.tables
+    }
+}
 
-export default Table;
+export default  connect(mapToStateProps, {getRoomList})(Table);

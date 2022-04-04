@@ -31,7 +31,6 @@ class Product extends Component {
                     data={products}
                     renderItem={({item, index}) =>
                         (<View>
-                            {/* onPress={()=>this.onPressed(item.productId)} */}
                             <ProductCard>
                                 <View style={{height:height*0.15, justifyContent:'space-between',marginHorizontal:15, paddingVertical:15}}>
                                     <Text style={styles.productTitle} >{item.name}</Text>
