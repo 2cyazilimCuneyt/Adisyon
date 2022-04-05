@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Text, StyleSheet, View } from 'react-native';
 import { Router, Scene, Drawer, Stack } from 'react-native-router-flux';
 
-import BosSayfa from '../pages/BosSayfa';
 import Anasayfa from '../pages/anasayfa/Anasayfa';
 import LoginForm from '../pages/login/LoginForm';
 import Navigation from '../pages/menu/Navigation';
@@ -22,7 +21,6 @@ export default class DrawerNavigator extends Component {
                     <Scene key="main" hideNavBar>  
                         <Drawer key="drawer" contentComponent={Navigation} drawerPosition='left' drawerWidth={'80%'} initial>
                             <Scene key="LoginForm" component={LoginForm} hideNavBar/>
-                            {/*  <Scene key="BosSayfa" component={BosSayfa} hideNavBar/> */}
                             <Scene key="Anasayfa" component={Anasayfa} hideNavBar />
                             <Scene key="Table" component={Table} hideNavBar />
                             <Scene key="TableItem" component={TableItem} hideNavBar />
