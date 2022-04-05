@@ -1,13 +1,11 @@
-import {TABLE_LIST} from '../actions/types';
+import { TABLE_LIST } from '../actions/types';
 
 const INITIAL_STATE = {
-    roomId: 0,
-    name: "pariatur commodo veniam dolor occaecat",
-    description: "velit id occaecat sed",
     tables:[]
 }
 
 export default (state=INITIAL_STATE, action) => {
+    console.log('tablesssssssssssss', TABLE_LIST, action.type)
     switch (action.type) {
         case TABLE_LIST:
             return {...state, tables: action.payload}

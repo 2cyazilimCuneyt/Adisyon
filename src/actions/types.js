@@ -8,6 +8,8 @@ export const LOGIN_REMEMBER_ME = 'login_remember_me';
 export const ROOM_LIST = 'room_list';
 export const TABLE_LIST = 'table_list';
 
+export const SELECTED_ROOM = 'selected_room';
+
 export const MENU_LIST = 'menu_list';
 
 export const PRODUCT_LIST = 'product_list';

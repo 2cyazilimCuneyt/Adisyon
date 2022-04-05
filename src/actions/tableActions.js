@@ -3,9 +3,10 @@ import { TABLE_LIST } from './types';
 
 const API_URL = 'https://adisyon.crm2c.gen.tr/api/Admin/GetTableListByRoomId?RoomId=';
 
-export const getTableList = (roomId) => {
+export const getTableList = (id) => {
     return (dispatch) => {
-        axios.get(API_URL + roomId)
+        console.log('API_URL + id ----------->',API_URL + id)
+        axios.get(API_URL + id)
         .then(response => {
             console.log('getTableList', response.data)
             dispatch({

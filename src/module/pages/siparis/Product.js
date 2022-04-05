@@ -59,7 +59,7 @@ class Product extends Component {
                     <TouchableOpacity style={styles.buttonBox1} onPress={()=> Actions.Order()}>
                         <View style={{borderColor:'#fff', borderWidth:2,      justifyContent:'center', alignItems:'center',height:30,
                         width:30, borderRadius:15,}}>
-                            <Text style={{fontSize:16, color:'#fff', fontWeight:'600'}}>3</Text>
+                            <Text style={{fontSize:16, color:'#fff', fontWeight:'600'}}>0</Text>
                         </View>
                         <Text style={{fontSize:19, color:'#fff', fontWeight:'600'}}>Sipariş Detay</Text>
                     </TouchableOpacity>

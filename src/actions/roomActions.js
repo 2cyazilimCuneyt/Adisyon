@@ -7,7 +7,6 @@ export const getRoomList = () => {
     return (dispatch) => {
         axios.get(API_URL)
         .then(response => {
-            console.log('getRoomList', response.data)
             dispatch({
                     type: ROOM_LIST,
                     payload:response.data
