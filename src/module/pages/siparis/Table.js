@@ -41,20 +41,22 @@ class Table extends Component {
                 <ScrollView style={{width:width, marginVertical:20}}>
                     <View style={styles.siparisContainer}>
                      
-                     
+                     <ScrollView horizontal={true}> 
                         <FlatList
-                                data={rooms}
-                                numColumns={12}
-                                renderItem={({item, index}) => (
-                                    <View style={{flexDirection:'row',justifyContent:'space-between',alignItems:'center',marginVertical:10,}}>
-                                        <TouchableOpacity style={styles.roomBox} onPress={() => this.onPressed(item.roomId)} >
-                                            <Text style={styles.roomText}> {item.name} </Text>
-                                        </TouchableOpacity>
-                                    </View>
-                                )}
-                                keyExtractor={(item) => item.roomId}
-                                style={{marginHorizontal:23}}
-                            />
+                            data={rooms}
+                            numColumns={30}
+                            renderItem={({item, index}) => (
+                                <View style={{flexDirection:'row',justifyContent:'space-between',alignItems:'center',marginVertical:10,}}>
+                                    <TouchableOpacity style={styles.roomBox} onPress={() => this.onPressed(item.roomId)} >
+                                        <Text style={styles.roomText}> {item.name} </Text>
+                                    </TouchableOpacity>
+                                </View>
+                            )}
+                            keyExtractor={(item) => item.roomId}
+                            style={{marginHorizontal:23}}
+                        />
+                     </ScrollView>
+                        
                        
                     <FlatList
                         data={tables}
@@ -116,20 +118,20 @@ const styles = StyleSheet.create({
         alignItems:'center'
     },
     roomBox:{
-        width:width*0.4,
+        width:width*0.8,
         height:height*0.05,
-        backgroundColor:'#f5f5f5',
+        backgroundColor:'#fff',
         borderRadius:10,
         justifyContent:'center',
         alignItems:'center',
         marginHorizontal:5,
         borderColor:'#ff554a',
-        borderBottomWidth:1
+        borderWidth:1
     },
     roomText:{
         fontSize:15,
         fontWeight:'600',
-        color:'#707070',
+        color:'#ff554a',
         letterSpacing:1
     },
     siparisBox:{
