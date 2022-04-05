@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, StyleSheet, View, Image, TouchableOpacity, Button, Dimensions,FlatList, ScrollView, Modal } from 'react-native';
+import { Text, StyleSheet, View, Image, TouchableOpacity, Dimensions,FlatList, ScrollView } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import {getRoomList, getTableList} from '../../../actions';
@@ -10,14 +10,6 @@ const height = Dimensions.get('window').height;
 
 class Table extends Component {
 
-    constructor(props){
-        super(props);
-        this.state = {
-            modalVisible: false,
-            name:""
-        }
-    }
-
     UNSAFE_componentWillMount(){
         this.props.getRoomList();
         console.log('romssss 1')
@@ -26,6 +18,7 @@ class Table extends Component {
     onPressed = (roomId) =>{
         this.props.getTableList(roomId);
     }
+    
     render() {
         const {rooms,tables} = this.props;
         return (
