@@ -5,7 +5,6 @@ const INITIAL_STATE = {
 }
 
 export default (state=INITIAL_STATE, action) => {
-    console.log('tablesssssssssssss', TABLE_LIST, action.type)
     switch (action.type) {
         case TABLE_LIST:
             return {...state, tables: action.payload}

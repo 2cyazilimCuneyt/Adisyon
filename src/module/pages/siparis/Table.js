@@ -12,7 +12,6 @@ class Table extends Component {
 
     UNSAFE_componentWillMount(){
         this.props.getRoomList();
-        console.log('romssss 1')
     }
 
     onPressed = (roomId) =>{

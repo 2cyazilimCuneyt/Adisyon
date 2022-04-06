@@ -11,7 +11,6 @@ import Menus from '../pages/siparis/Menus';
 import Product from '../pages/siparis/Product';
 import Order from '../pages/siparis/Order';
 import OrderDetail from '../pages/siparis/OrderDetail';
-import TableItem from '../component/TableItem';
 
 export default class DrawerNavigator extends Component {
     render() {
@@ -23,7 +22,6 @@ export default class DrawerNavigator extends Component {
                             <Scene key="LoginForm" component={LoginForm} hideNavBar/>
                             <Scene key="Anasayfa" component={Anasayfa} hideNavBar />
                             <Scene key="Table" component={Table} hideNavBar />
-                            <Scene key="TableItem" component={TableItem} hideNavBar />
                             <Scene key="Menus" component={Menus} hideNavBar />
                             <Scene key="Mutfak" component={Mutfak} hideNavBar />
                             <Scene key="Product" component={Product} hideNavBar />
