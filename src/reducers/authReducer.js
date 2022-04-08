@@ -3,7 +3,8 @@ import { EMAIL_CHANGED, PASSWORD_CHANGED, LOGIN, LOGIN_USER_SUCCESS, LOGIN_USER_
     const INITIAL_STATE={
         email: '',
         password:'',
-        loading: false
+        loading: false,
+        isRemembered: ''
     }
     
     export default (state = INITIAL_STATE, action) => {
@@ -19,7 +20,7 @@ import { EMAIL_CHANGED, PASSWORD_CHANGED, LOGIN, LOGIN_USER_SUCCESS, LOGIN_USER_
             case LOGIN_USER_FAILED:
                 return { ...state, loading: false };
             case LOGIN_REMEMBER_ME:
-                return {...state, isRemembered: action.payloada}
+                return {...state, isRemembered: action.payload}
             default:
                 return state;
         }

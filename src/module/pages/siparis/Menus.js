@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => {
      return{
         menus:state.menu.menus,
-        products: state.product.products
+        products: state.product.products,
      }
 };
 
