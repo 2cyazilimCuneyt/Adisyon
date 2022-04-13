@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Text, StyleSheet, View, Image, TouchableOpacity, Dimensions,FlatList, ScrollView } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
-import {getRoomList, getTableList} from '../../../actions';
+import {getRoomList, getTableList, activeTable} from '../../../actions';
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
@@ -16,6 +16,11 @@ class Table extends Component {
 
     onPressed = (roomId) =>{
         this.props.getTableList(roomId);
+    }
+    
+    onPressedTable = (table) =>{
+        this.props.activeTable(table);
+        Actions.Menus();
     }
     
     render() {
@@ -57,7 +62,7 @@ class Table extends Component {
                         renderItem={({item, index}) => (
                             
                                 <View style={{flexDirection:'row',justifyContent:'space-between',alignItems:'center',marginVertical:10}}>
-                                <TouchableOpacity style={styles.siparisBox} onPress={() => Actions.Menus()}>
+                                <TouchableOpacity style={styles.siparisBox} onPress={() => this.onPressedTable(item.name)}>
                                     <Text style={styles.siparisText}> {item.name} </Text>
                                 </TouchableOpacity>
                             </View>
@@ -142,11 +147,12 @@ const styles = StyleSheet.create({
 })
 
 const mapToStateProps = state => {
-    console.log('tablesssssssss', state.table.tables);
     return {
         rooms: state.room.rooms,
-        tables: state.table.tables
+        tables: state.table.tables,
     }
 }
 
-export default  connect(mapToStateProps, {getRoomList, getTableList})(Table);
+
+
+export default  connect(mapToStateProps, {getRoomList, getTableList, activeTable})(Table);

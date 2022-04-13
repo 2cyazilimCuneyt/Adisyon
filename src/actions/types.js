@@ -7,20 +7,8 @@ export const LOGIN_REMEMBER_ME = 'login_remember_me';
 
 export const ROOM_LIST = 'room_list';
 export const TABLE_LIST = 'table_list';
-
-export const SELECTED_ROOM = 'selected_room';
+export const ACTIVE_TABLE = 'active_table';
 
 export const MENU_LIST = 'menu_list';
 
 export const PRODUCT_LIST = 'product_list';
-
-export const SELECTED_MENU = 'selected_menu';
-export const DESELECTED_MENU = 'deselected_menu';
-
-
-export const SELECTED_PRODUCT = 'selected_product';
-export const DESELECTED_PRODUCT = 'deselected_product';
-
-export const GET_ORDER_LIST = 'get_order_list';
-export const ORDER_DETAIL ='order_detail';
-

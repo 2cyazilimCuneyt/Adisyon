@@ -1,28 +1,26 @@
 import React, { Component } from 'react'
-import { Text, StyleSheet, View, TouchableOpacity, FlatList, Dimensions, Image } from 'react-native';
+import { Text, StyleSheet, View, TouchableOpacity, FlatList, Dimensions, Image, Alert } from 'react-native';
 import { ProductCard } from '../../component/ProductCard';
 import * as actions from '../../../actions';
 import { connect } from  'react-redux';
 import Input from '../../component/Input';
 import {Actions} from 'react-native-router-flux';
+import Header from '../../component/Header';
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
 
 class Product extends Component {
-   
+
+    addToCart = (product) => {
+       
+    }
+
     render() {
         const {products} = this.props;
         return (
             <View style={styles.container}>
-                <View style={styles.banner}>
-                    <View style={styles.bannerContainer}>
-                        <TouchableOpacity onPress={() => Actions.drawerOpen()}>
-                            <Text>Menü</Text>
-                        </TouchableOpacity>
-                        <Text>Yeni Sipariş / Masa Numarası </Text>
-                    </View>
-                </View>
+                <Header/>
 
                 <View>
                     <Input full placeholder="Menüde Arama Yapın..."/>
@@ -56,7 +54,7 @@ class Product extends Component {
                         <Image source={require('../../assets/onay.png')} />
                         <Text style={{fontSize:19, color:'#fff', fontWeight:'600'}}>Kaydet</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.buttonBox1} onPress={()=> Actions.Order()}>
+                    <TouchableOpacity style={styles.buttonBox1}>
                         <View style={{borderColor:'#fff', borderWidth:2,      justifyContent:'center', alignItems:'center',height:30,
                         width:30, borderRadius:15,}}>
                             <Text style={{fontSize:16, color:'#fff', fontWeight:'600'}}>0</Text>
@@ -149,7 +147,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
     return {
-        products: state.product.products
+        products: state.product.products,
+        activeTables: state.table.activeTable,
     }
 }
 

@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import * as actions from '../../../actions';
 import {Actions} from 'react-native-router-flux';
 import Input from '../../component/Input';
+import Header from '../../component/Header';
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
@@ -29,18 +30,9 @@ class Menus extends Component {
     
     render() {
         const {menus} = this.props;
-
         return (
             <View style={styles.container}>
-                <View style={styles.banner}>
-                    <View style={styles.bannerContainer}>
-                        <TouchableOpacity onPress={() => Actions.drawerOpen()}>
-                            <Text>Menü</Text>
-                        </TouchableOpacity>
-                        <Text>Yeni Sipariş / Masa Numarası </Text>
-                    </View>
-                </View>
-
+                <Header/>
                 <View>
                     <Input full placeholder="Menüde Arama Yapın..."/>
                 </View>
