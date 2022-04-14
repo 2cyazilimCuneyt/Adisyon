@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Text, StyleSheet, View, Image, TouchableOpacity, Dimensions,FlatList, ScrollView } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
-import {getRoomList, getTableList, activeTable} from '../../../actions';
+import {getRoomList, getTableList, activeTable, addToOrder, orderDetailInitial} from '../../../actions';
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
@@ -21,7 +21,21 @@ class Table extends Component {
     onPressedTable = (table) =>{
         this.props.activeTable(table);
         Actions.Menus();
+        let order = {
+            "orderId": 0,
+            "tableId": table.tableId,
+            "date": "1972-07-17T03:55:52.590Z",
+            "description": "sint sed",
+            "userId": 0,
+            "isClosed": false,
+            "isReady": false,
+            "totalPrice": 0
+        };
+        this.props.addToOrder(order);
+        this.props.orderDetailInitial();
     }
+
+
     
     render() {
         const {rooms,tables} = this.props;
@@ -62,7 +76,7 @@ class Table extends Component {
                         renderItem={({item, index}) => (
                             
                                 <View style={{flexDirection:'row',justifyContent:'space-between',alignItems:'center',marginVertical:10}}>
-                                <TouchableOpacity style={styles.siparisBox} onPress={() => this.onPressedTable(item.name)}>
+                                <TouchableOpacity style={styles.siparisBox} onPress={() => this.onPressedTable(item)}>
                                     <Text style={styles.siparisText}> {item.name} </Text>
                                 </TouchableOpacity>
                             </View>
@@ -155,4 +169,5 @@ const mapToStateProps = state => {
 
 
 
-export default  connect(mapToStateProps, {getRoomList, getTableList, activeTable})(Table);
+export default  connect(mapToStateProps, 
+    {getRoomList, getTableList, activeTable,addToOrder, orderDetailInitial })(Table);

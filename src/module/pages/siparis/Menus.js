@@ -12,6 +12,7 @@ const height = Dimensions.get('window').height;
 
 class Menus extends Component {
    UNSAFE_componentWillMount(){
+      
         this.props.getMenuList();
    }
 
@@ -92,6 +93,7 @@ const mapStateToProps = state => {
      return{
         menus:state.menu.menus,
         products: state.product.products,
+        activeTables: state.table.activeTable,
      }
 };
 

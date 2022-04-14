@@ -12,3 +12,13 @@ export const ACTIVE_TABLE = 'active_table';
 export const MENU_LIST = 'menu_list';
 
 export const PRODUCT_LIST = 'product_list';
+
+export const ADD_TO_CART = 'add_to_cart';
+export const EMPTY_CART = 'empty_cart';
+export const REMOVE_FROM_CART = 'remove_from_cart';
+
+export const ADD_ORDER = 'add_order';
+export const ACTIVE_ORDER = 'active_order';
+
+export const ADD_ORDER_DETAIL_LIST = 'add_order_detail_list';
+export const ORDER_DETAIL_INITIAL ='order_detail_initial';

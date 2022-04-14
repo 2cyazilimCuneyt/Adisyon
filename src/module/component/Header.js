@@ -20,7 +20,7 @@ class Header extends Component {
                             <Image source={require('../assets/images/menu.png')} style={{width:width*0.07, height:width*0.07}}/>
                         </TouchableOpacity>
                     </View>
-                    <Text style={{color:'#fff', fontSize:15}}>Yeni Sipariş / {this.props.activeTables} </Text>
+                    <Text style={{color:'#fff', fontSize:15}}>Yeni Sipariş / {this.props.activeTables.name} </Text>
                 </View>
             </View>
         )

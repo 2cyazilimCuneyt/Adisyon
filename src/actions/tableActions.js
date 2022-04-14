@@ -16,6 +16,7 @@ export const getTableList = (id) => {
 }
 
 export const activeTable = (table) => {
+    console.log('table----------->', table);
     return (dispatch) => {
         dispatch({
              type: ACTIVE_TABLE,

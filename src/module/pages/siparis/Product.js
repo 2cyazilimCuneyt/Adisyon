@@ -12,8 +12,15 @@ const height = Dimensions.get('window').height;
 
 class Product extends Component {
 
-    addToCart = (product) => {
-       
+    addToOrderDetails = (product) => {
+        let orderDetail = {
+            "orderDetailId": 0,
+            "orderId": this.props.activeOrder.orderId,
+            "productId": product.productId,
+            "portion": "exercitation reprehenderit eu",
+            "count": 0
+        }
+
     }
 
     render() {
@@ -34,7 +41,7 @@ class Product extends Component {
                                     <Text style={styles.productTitle} >{item.name}</Text>
                                     <Text style={styles.productSubTitle} >₺ {item.price}</Text>
                                 </View>
-                                <View style={styles.productButton}>
+                                <View style={styles.productButton} >
                                     <TouchableOpacity style={styles.counter}>
                                         <Text>+</Text>
                                     </TouchableOpacity>
@@ -146,9 +153,11 @@ const styles = StyleSheet.create({
 })
 
 const mapStateToProps = state => {
+    console.log('statePRODUCT----------->', state);
     return {
         products: state.product.products,
         activeTables: state.table.activeTable,
+        activeOrders: state.order.activeOrder,
     }
 }
 
