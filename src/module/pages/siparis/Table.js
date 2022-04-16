@@ -12,6 +12,7 @@ class Table extends Component {
 
     UNSAFE_componentWillMount(){
         this.props.getRoomList();
+        
     }
 
     onPressed = (roomId) =>{
@@ -32,7 +33,6 @@ class Table extends Component {
             "totalPrice": 0
         };
         this.props.addToOrder(order);
-        this.props.orderDetailInitial();
     }
 
 

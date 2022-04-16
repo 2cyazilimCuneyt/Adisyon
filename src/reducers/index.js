@@ -5,6 +5,7 @@ import TableReducer from './tableReducer';
 import MenuReducer from './menuReducer';
 import ProductReducer from './productReducer';
 import OrderReducer from './orderReducer';
+import OrderDetailListReducer from './orderDetailListReducer';
 
 export default combineReducers({
     auth:AuthReducer,
@@ -13,4 +14,5 @@ export default combineReducers({
     menu:MenuReducer,
     product:ProductReducer,
     order:OrderReducer,
+    orderDetail: OrderDetailListReducer,
 });

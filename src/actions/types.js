@@ -22,3 +22,4 @@ export const ACTIVE_ORDER = 'active_order';
 
 export const ADD_ORDER_DETAIL_LIST = 'add_order_detail_list';
 export const ORDER_DETAIL_INITIAL ='order_detail_initial';
+export const SAVE_ORDER_DETAIL_LIST = 'save_order_detail_list';

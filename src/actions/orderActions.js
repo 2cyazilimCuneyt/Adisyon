@@ -7,7 +7,6 @@ export const addToOrder = (order) => {
     return (dispatch) => {
         axios.post(API_URL, order)
         .then(response => {
-            console.log('order detail list -------->', response.data)
             dispatch ({
                 type: ADD_ORDER,
                 payload: response.data

@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { Text, StyleSheet, View } from 'react-native'
+import { connect } from 'react-redux'
 
-export default class Cart extends Component {
+class Cart extends Component {
     render() {
         return (
             <View>
@@ -12,3 +13,10 @@ export default class Cart extends Component {
 }
 
 const styles = StyleSheet.create({})
+
+const mapToStateProps = state => {
+    console.log('Cart State------------>', state);
+    return {}
+}
+
+export default connect(mapToStateProps, null)(Cart);

@@ -11,18 +11,22 @@ const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
 
 class Product extends Component {
-
-    addToOrderDetails = (product) => {
+    addToOrderDetails = (product, count) => {
         let orderDetail = {
             "orderDetailId": 0,
-            "orderId": this.props.activeOrder.orderId,
+            "orderId": this.props.activeOrders.orderId,
             "productId": product.productId,
             "portion": "exercitation reprehenderit eu",
-            "count": 0
+            "count": count
         }
-
+        this.props.updateOrderDetailList(orderDetail, this.props.orderDetailList)
+        
     }
 
+    saveDetailList = () => {
+        this.props.saveOrderDetailList(this.props.orderDetailList);
+        console.log('saveOrderDetailList----------------->', this.props.orderDetailList)
+    }
     render() {
         const {products} = this.props;
         return (
@@ -42,11 +46,11 @@ class Product extends Component {
                                     <Text style={styles.productSubTitle} >₺ {item.price}</Text>
                                 </View>
                                 <View style={styles.productButton} >
-                                    <TouchableOpacity style={styles.counter}>
+                                    <TouchableOpacity style={styles.counter} onPress={()=> this.addToOrderDetails(item,1)}>
                                         <Text>+</Text>
                                     </TouchableOpacity>
                                     <Text style={styles.counterText}>0</Text>
-                                    <TouchableOpacity style={styles.counter}>
+                                    <TouchableOpacity style={styles.counter}  onPress={()=> this.addToOrderDetails(item,-1)}>
                                     <Text>-</Text>
                                     </TouchableOpacity>
                                 </View>
@@ -57,7 +61,7 @@ class Product extends Component {
                     style={styles.menuContainerBox}
                 />
                 <View style={styles.buttonContainer}>
-                    <TouchableOpacity style={styles.buttonBox}>
+                    <TouchableOpacity style={styles.buttonBox} onPress={()=> this.saveDetailList()}>
                         <Image source={require('../../assets/onay.png')} />
                         <Text style={{fontSize:19, color:'#fff', fontWeight:'600'}}>Kaydet</Text>
                     </TouchableOpacity>
@@ -153,11 +157,11 @@ const styles = StyleSheet.create({
 })
 
 const mapStateToProps = state => {
-    console.log('statePRODUCT----------->', state);
     return {
         products: state.product.products,
         activeTables: state.table.activeTable,
         activeOrders: state.order.activeOrder,
+        orderDetailList: state.orderDetail.orderDetailList,
     }
 }
 
