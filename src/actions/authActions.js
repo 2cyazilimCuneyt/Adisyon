@@ -87,7 +87,7 @@ export const login = (email, password) => {
             type: LOGIN
         });
 
-        axios.post('https://adisyon.crm2c.gen.tr' + '/api/Auth/login', {
+        axios.post('https://api.terracesarkoy.com' + '/api/Auth/login', {
             email,password,
         })
             .then(user => {
@@ -121,7 +121,7 @@ const loginUserSuccess = async (dispatch, user) => {
         
         console.log("Giriş yapıldı!", "Başarılı bir şekilde giriş yapıldı.", user.data);
         //Actions.main({ type: ActionConst.RESET });
-        Actions.Anasayfa()
+        Actions.Table()
 }
 
 const loginUserFailed = (dispatch) => {

@@ -30,7 +30,7 @@ class Header extends Component {
 const styles = StyleSheet.create({
     banner:{
         width:width,
-        backgroundColor:'#ff554a',
+        backgroundColor:'#3ec978',
         height:100,
         paddingTop:Platform.OS === 'ios' ? 50 : 20,
         alignItems:'center',

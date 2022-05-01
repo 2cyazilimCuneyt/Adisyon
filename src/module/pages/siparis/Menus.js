@@ -33,7 +33,19 @@ class Menus extends Component {
         const {menus} = this.props;
         return (
             <View style={styles.container}>
-                <Header/>
+                <View style={styles.banner}>
+                    <View style={styles.bannerContainer}>
+                        <View style={{width:width*0.15, flexDirection:'row', justifyContent:'space-between', alignItems:'center'}}>
+                            <TouchableOpacity onPress={() => Actions.Table()}>
+                                <Image source={require('../../assets/images/left.png')} style={{width:width*0.07, height:width*0.07}}/>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={() => Actions.drawerOpen()}>
+                                <Image source={require('../../assets/images/menu.png')} style={{width:width*0.07, height:width*0.07}}/>
+                            </TouchableOpacity>
+                        </View>
+                        <Text style={{color:'#fff', fontSize:15}}>Yeni Sipariş / {this.props.activeTables.name} </Text>
+                    </View>
+                </View>
                 <View>
                     <Input full placeholder="Menüde Arama Yapın..."/>
                 </View>
@@ -63,7 +75,7 @@ const styles = StyleSheet.create({
     },
     banner:{
         width:width,
-        backgroundColor:'#ff554a',
+        backgroundColor:'#3ec978',
         height:100,
         paddingTop:Platform.OS === 'ios' ? 50 : 20,
         alignItems:'center',
@@ -82,7 +94,7 @@ const styles = StyleSheet.create({
         borderRadius:10,
         justifyContent:'center',
         alignItems:'center',
-        borderColor: '#ff554a',
+        borderColor: '#3ec978',
         borderWidth:1,
         marginHorizontal:10,
         marginVertical:10

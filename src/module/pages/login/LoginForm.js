@@ -48,7 +48,7 @@ class LoginForm extends Component {
         return (
             <View style={styles.container}>
                 <View style={styles.banner}>
-                    <Text style={styles.bannerText}>ADİSYON</Text>
+                    <Image source={require('../../assets/terrace.png')} style={styles.logo} />
                 </View>
                 <View style={styles.loginFormContainer}>
                     <View style={styles.loginForm}>
@@ -65,7 +65,7 @@ class LoginForm extends Component {
                         />
                         <Text style={styles.label}>Beni Hatırla</Text>
                     </View>
-                    <Button onPress={()=> this.GirisYap()} style={styles.loginButton} title="Giriş Yap" color='#ff554a' ></Button>
+                    <Button onPress={()=> this.GirisYap()} style={styles.loginButton} title="Giriş Yap" color='#3ec978' ></Button>
                 </View>
             </View>
         )
@@ -123,6 +123,10 @@ const styles = StyleSheet.create({
       label: {
         margin: 2,
       },
+      logo: {
+        width: width*0.80,
+        height:height*0.12,
+      }
 })
 const mapStateToProps = state => {
     const { email, password, loading, error} = state.auth;

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { TABLE_LIST, ACTIVE_TABLE } from './types';
 
-const API_URL = 'https://adisyon.crm2c.gen.tr/api/Admin/GetTableListByRoomId?RoomId=';
+const API_URL = 'https://api.terracesarkoy.com/api/Admin/GetTableListByRoomId?RoomId=';
 
 export const getTableList = (id) => {
     return (dispatch) => {

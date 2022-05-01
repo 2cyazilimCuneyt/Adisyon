@@ -14,13 +14,13 @@ export default class Navigation extends Component {
                 </View>
                 <View style={styles.menuContainer}>
                     <View>
-                        <TouchableOpacity style={styles.menuBox} onPress={() => Actions.Anasayfa()}>
+                        {/* <TouchableOpacity style={styles.menuBox} onPress={() => Actions.Anasayfa()}>
                             <View style={{flexDirection:'row',alignItems:'center'}}>
                                 <Image/>
                                 <Text>Anasayfa</Text>
                             </View>
                             <Image/>
-                        </TouchableOpacity>
+                        </TouchableOpacity> */}
                         <TouchableOpacity style={styles.menuBox}  onPress={() => Actions.Table()}>
                             <View style={{flexDirection:'row',alignItems:'center'}}>
                                 <Image/>

@@ -13,7 +13,7 @@ const ProductCard = (props) => {
 }
 const styles = StyleSheet.create({
     cardContainer:{
-        width: width*0.4,
+        width: width*0.38,
         height: height*0.15,
         backgroundColor:'#F5F5F5',
         borderRadius:10,

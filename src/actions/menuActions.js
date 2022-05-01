@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { MENU_LIST } from './types';
 
-const API_URL = 'https://adisyon.crm2c.gen.tr/api/Product/GetMenuList';
+const API_URL = 'https://api.terracesarkoy.com/api/Product/GetMenuList';
 
 
 export const getMenuList = () => {

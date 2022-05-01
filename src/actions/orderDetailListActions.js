@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { ADD_ORDER_DETAIL_LIST, ORDER_DETAIL_INITIAL, SAVE_ORDER_DETAIL_LIST } from './types';
 
-const API_URL = 'https://adisyon.crm2c.gen.tr/api/Order/AddOrderDetailList';
+const API_URL = 'https://api.terracesarkoy.com/api/Order/AddOrderDetailList';
 
 export const addOrderDetailList = (orderDetail) => {
     return (dispatch) => {

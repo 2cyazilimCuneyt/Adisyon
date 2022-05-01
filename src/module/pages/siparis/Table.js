@@ -35,8 +35,6 @@ class Table extends Component {
         this.props.addToOrder(order);
     }
 
-
-    
     render() {
         const {rooms,tables} = this.props;
         return (
@@ -44,9 +42,9 @@ class Table extends Component {
                 <View style={styles.banner}>
                     <View style={styles.bannerContainer}>
                         <TouchableOpacity onPress={() => Actions.drawerOpen()}>
-                            <Text>Menü</Text>
+                            <Image source={require('../../assets/images/menu.png')} style={{width:width*0.07, height:width*0.07}}/>
                         </TouchableOpacity>
-                        <Text>Sipariş / </Text>
+                        <Text style={{color:'#fff', fontSize:15}}>Sipariş / </Text>
                     </View>
                 </View>
                 <ScrollView style={{width:width, marginVertical:20}}>
@@ -114,7 +112,7 @@ const styles = StyleSheet.create({
     },
     banner:{
         width:width,
-        backgroundColor:'#ff554a',
+        backgroundColor:'#3ec978',
         height:100,
         paddingTop:Platform.OS === 'ios' ? 50 : 20,
         alignItems:'center'
@@ -136,13 +134,13 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         alignItems:'center',
         marginHorizontal:5,
-        borderColor:'#ff554a',
+        borderColor:'#3ec978',
         borderWidth:1
     },
     roomText:{
         fontSize:15,
         fontWeight:'600',
-        color:'#ff554a',
+        color:'#3ec978',
         letterSpacing:1
     },
     siparisBox:{

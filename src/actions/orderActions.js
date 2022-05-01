@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { ADD_ORDER, ACTIVE_ORDER } from './types';
 
-const API_URL = 'https://adisyon.crm2c.gen.tr/api/Order/AddOrder';
+const API_URL = 'https://api.terracesarkoy.com/api/Order/AddOrder';
 
 export const addToOrder = (order) => {
     return (dispatch) => {

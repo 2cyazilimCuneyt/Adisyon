@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { ROOM_LIST } from './types';
 
-const API_URL = 'https://adisyon.crm2c.gen.tr/api/Admin/GetRoomList';
+const API_URL = 'https://api.terracesarkoy.com/api/Admin/GetRoomList';
 
 export const getRoomList = () => {
     return (dispatch) => {
