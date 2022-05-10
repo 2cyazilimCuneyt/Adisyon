@@ -6,6 +6,8 @@ export const LOGIN_USER_FAILED = 'login_user_failed';
 export const LOGIN_REMEMBER_ME = 'login_remember_me';
 
 export const ROOM_LIST = 'room_list';
+export const ACTIVE_ROOM = 'active_room';
+
 export const TABLE_LIST = 'table_list';
 export const ACTIVE_TABLE = 'active_table';
 

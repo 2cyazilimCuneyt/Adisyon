@@ -1,19 +1,18 @@
+/* eslint-disable prettier/prettier */
 import _ from 'lodash';
 import React, { Component } from 'react';
-import { Text, StyleSheet, View, Image, ScrollView, Dimensions , FlatList, TouchableOpacity, Button } from 'react-native';
+import { Text, StyleSheet, View, Image, Dimensions , FlatList, TouchableOpacity, Platform } from 'react-native';
 import { connect } from 'react-redux';
 import * as actions from '../../../actions';
 import {Actions} from 'react-native-router-flux';
 import Input from '../../component/Input';
-import Header from '../../component/Header';
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
 
 class Menus extends Component {
    UNSAFE_componentWillMount(){
-      
-        this.props.getMenuList();
+    this.props.getMenuList();
    }
 
    onPressed = (menuId) =>{
@@ -22,13 +21,11 @@ class Menus extends Component {
 
          });
 
-         if (selectedMenu.length == 0) {
+         if (selectedMenu.length === 0) {
             this.props.getProductList(menuId);
             Actions.Product();
          }
-        
     }
-    
     render() {
         const {menus} = this.props;
         return (
@@ -97,16 +94,16 @@ const styles = StyleSheet.create({
         borderColor: '#3ec978',
         borderWidth:1,
         marginHorizontal:10,
-        marginVertical:10
-    }
-})
+        marginVertical:10,
+    },
+});
 
 const mapStateToProps = state => {
-     return{
+     return {
         menus:state.menu.menus,
         products: state.product.products,
         activeTables: state.table.activeTable,
-     }
+     };
 };
 
 export default connect(mapStateToProps, actions)(Menus);

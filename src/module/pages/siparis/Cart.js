@@ -1,5 +1,6 @@
+/* eslint-disable prettier/prettier */
 import React, { Component } from 'react';
-import { Text, StyleSheet, View, Image, ScrollView, Dimensions , FlatList, TouchableOpacity, Button } from 'react-native';
+import { Text, StyleSheet, View, Image, Dimensions, TouchableOpacity, Platform } from 'react-native';
 import { connect } from 'react-redux';
 import * as actions from '../../../actions';
 import {Actions} from 'react-native-router-flux';
@@ -25,7 +26,7 @@ class Cart extends Component {
                     </View>
                 </View>
             </View>
-        )
+        );
     }
 }
 
@@ -42,19 +43,21 @@ const styles = StyleSheet.create({
         height:100,
         paddingTop:Platform.OS === 'ios' ? 50 : 20,
         alignItems:'center',
-        marginBottom:25
+        marginBottom:25,
     },
     bannerContainer:{
         flexDirection:'row',
         justifyContent:'space-between',
         alignItems:'center',
-        width:width*0.85
+        width:width * 0.85,
     },
-})
+});
 
 const mapToStateProps = state => {
     console.log('Cart State------------>', state);
-    return {}
-}
+    return {
+        activeTables: state.table.activeTable,
+    };
+};
 
 export default connect(mapToStateProps, actions)(Cart);

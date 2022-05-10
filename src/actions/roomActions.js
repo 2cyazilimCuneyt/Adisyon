@@ -1,16 +1,24 @@
 import axios from 'axios';
-import { ROOM_LIST } from './types';
+import {ROOM_LIST, ACTIVE_ROOM} from './types';
 
 const API_URL = 'https://api.terracesarkoy.com/api/Admin/GetRoomList';
 
 export const getRoomList = () => {
-    return (dispatch) => {
-        axios.get(API_URL)
-        .then(response => {
-            dispatch({
-                    type: ROOM_LIST,
-                    payload:response.data
-            })
-        })
-    }
-}
+  return dispatch => {
+    axios.get(API_URL).then(response => {
+      dispatch({
+        type: ROOM_LIST,
+        payload: response.data,
+      });
+    });
+  };
+};
+
+export const activeRoom = room => {
+  return dispatch => {
+    dispatch({
+      type: ACTIVE_ROOM,
+      payload: room,
+    });
+  };
+};
