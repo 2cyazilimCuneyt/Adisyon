@@ -221,7 +221,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    width: width * 0.85,
+    width: width * 0.9,
   },
   siparisContainer: {
     alignItems: 'center',
@@ -285,6 +285,7 @@ const styles = StyleSheet.create({
 
 const mapToStateProps = state => {
   return {
+    users: state.auth,
     rooms: state.room.rooms,
     tables: state.table.tables,
     activeRooms: state.room.activeRoom,

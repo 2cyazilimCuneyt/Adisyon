@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
         flexDirection:'row',
         justifyContent:'space-between',
         alignItems:'center',
-        width:width*0.85
+        width:width*0.9,
     },
     cardContainer:{
         width: width*0.4,

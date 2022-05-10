@@ -36,20 +36,16 @@ class Product extends Component {
   };
 
   selectedCount = product => {
-    console.log('product', product);
-    let selected = this.props.orderDetailList.filter(itemOD => {
-      return itemOD.productId == product.productId;
-    });
-    if (selected.length > 0) {
-      return selected[0].count;
-    }
+    try {
+      let selected = this.props.orderDetailList.filter(item => {
+        return item.productId === product.productId;
+      });
+      if (selected.length > 0) {
+        return selected[0].count;
+      }
+    } catch {}
     return 0;
   };
-
-  goToCart = activeRoom => {
-    Actions.Cart(activeRoom);
-  };
-
   render() {
     const {products} = this.props;
     return (
@@ -132,7 +128,7 @@ class Product extends Component {
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => this.goToCart()}
+            onPress={() => Actions.Cart(this.props.orderDetailList)}
             style={styles.buttonBox1}>
             <View
               style={{
@@ -177,7 +173,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    width: width * 0.85,
+    width: width * 0.9,
   },
   productTitle: {
     color: '#5a5a5a',
