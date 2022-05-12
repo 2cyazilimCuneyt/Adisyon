@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable prettier/prettier */
 import React, { Component } from 'react';
-import { Text, StyleSheet, View, Image, Dimensions, TouchableOpacity, Platform, ScrollView, FlatList } from 'react-native';
+import { Text, StyleSheet, View, Image, Dimensions, TouchableOpacity, Platform, FlatList } from 'react-native';
 import { connect } from 'react-redux';
 import * as actions from '../../../actions';
 import {Actions} from 'react-native-router-flux';
@@ -10,68 +10,100 @@ const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
 
 class Cart extends Component {
-    renderItem = (item) => (
-        <View style={styles.cartContainer}>
-            <View style={styles.cartBody}>
-                <View style={styles.cartBox}>
-                    <View style={{flexDirection:'row', justifyContent:'space-between', alignItems:'center', width:width * 0.15}} >
-                        <TouchableOpacity>
-                            <Text>-</Text>
-                        </TouchableOpacity>
-                        <Text>0</Text>
-                        <TouchableOpacity>
-                            <Text>+</Text>
-                        </TouchableOpacity>
-                    </View>
-                    <Text>Tam - name</Text>
-                    <Text>₺ 12.00</Text>
-                </View>
-                <View style={styles.cartRow} />
-            </View>
-            <View style={styles.cartFooter}>
-                <View>
-                    <Text>Toplam Tutar</Text>
-                    <Text>₺ </Text>
-                </View>
-                <View>
-                    <Text>İndirim</Text>
-                    <Text>₺ 0.00</Text>
-                </View>
-                <View>
-                    <Text>Tahsil Edilen</Text>
-                    <Text>₺ 0.00</Text>
-                </View>
-                <View>
-                    <Text>Kalan</Text>
-                    <Text>₺ </Text>
-                </View>
-            </View>
-        </View>
-    );
+      addToOrderDetails = (product, count) => {
+        let orderDetail = {
+            orderDetailId: 0,
+            orderId: this.props.activeOrders.orderId,
+            productId: product.productId,
+            productName: product.name,
+            productPrice: product.price,
+            portion: 'exercitation reprehenderit eu',
+            count: count,
+        };
+        this.props.updateOrderDetailList(orderDetail, this.props.orderDetailList);
+      };
+
+      saveDetailList = () => {
+        this.props.saveOrderDetailList(this.props.orderDetailList);
+      };
+
+      selectedCount = product => {
+        try {
+          let selected = this.props.orderDetailList.filter(item => {
+            return item.productId === product.productId;
+          });
+          if (selected.length > 0) {
+            return selected[0].count;
+          }
+        } catch {}
+        return 0;
+      };
+      totalPrice = () => {
+
+      }
     render() {
-        const {orderList} = this.props;
         return (
             <View style={styles.container}>
                 <View style={styles.banner}>
                     <View style={styles.bannerContainer}>
-                        <View style={{width:width*0.15, flexDirection:'row', justifyContent:'space-between', alignItems:'center'}}>
-                            <TouchableOpacity onPress={() => Actions.Product()}>
-                                <Image source={require('../../assets/images/left.png')} style={{width:width*0.07, height:width*0.07}}/>
-                            </TouchableOpacity>
-                            <TouchableOpacity onPress={() => Actions.drawerOpen()}>
-                                <Image source={require('../../assets/images/menu.png')} style={{width:width*0.07, height:width*0.07}}/>
-                            </TouchableOpacity>
-                        </View>
-                        <Text style={{color:'#fff', fontSize:15}}>Yeni Sipariş / {this.props.activeTables.name} </Text>
+                        <Text style={{color:'#fff', fontSize:16, fontWeight: '600'}}>{this.props.activeTables.name} </Text>
+                        <TouchableOpacity style={styles.buttonBox1} onPress={() => Actions.Product()}>
+                            <Image source={require('../../assets/close.png')} style={{width:20, height:20}} />
+                        </TouchableOpacity>
                     </View>
                 </View>
-                <ScrollView>
-                    <FlatList
-                        data={orderList}
-                        renderItem={this.renderItem()}
-                        keyExtractor={(item) => item.orderListId}
-                    />
-                </ScrollView>
+                    <View style={styles.cartContainer}>
+                        <FlatList
+                            data={this.props.orderDetailList}
+                            renderItem={({item, index}) => (
+                                <View style={styles.cartBody}>
+                                    <View style={styles.cartBox}>
+                                        <View style={{flexDirection:'row', justifyContent:'space-between', alignItems:'center', width:width * 0.15}} >
+                                            <TouchableOpacity onPress={() => this.addToOrderDetails(item, -1)}>
+                                                <Text>-</Text>
+                                            </TouchableOpacity>
+                                            <Text>{this.selectedCount(item)}</Text>
+                                            <TouchableOpacity onPress={() => this.addToOrderDetails(item, 1)}>
+                                                <Text>+</Text>
+                                            </TouchableOpacity>
+                                        </View>
+                                        <Text style={{width:width * 0.5}}>Tam - {item.productName}</Text>
+                                        <Text>₺ {item.productPrice}</Text>
+                                    </View>
+                                </View>
+                            )}
+                            keyExtractor={(item) => item.orderListId}
+                        />
+                    </View>
+                <View style={styles.cartRow} />
+                <View style={styles.cartFooter}>
+                    <View>
+                        <Text style={styles.footerText}>Toplam Tutar</Text>
+                        <Text>₺ 0.00</Text>
+                    </View>
+                    <View>
+                        <Text style={styles.footerText}>İndirim</Text>
+                        <Text>₺ 0.00</Text>
+                    </View>
+                    <View>
+                        <Text style={styles.footerText}>Tahsil Edilen</Text>
+                        <Text>₺ 0.00</Text>
+                    </View>
+                    <View>
+                        <Text style={styles.footerText}>Kalan</Text>
+                        <Text>₺ 0.00</Text>
+                    </View>
+                </View>
+                <View style={styles.buttonContainer}>
+                    <TouchableOpacity style={styles.buttonBox} onPress={() => this.saveDetailList()}>
+                        <Image source={require('../../assets/onay.png')} />
+                        <Text style={{fontSize: 19, color: '#fff', fontWeight: '600'}}>Kaydet</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.buttonBox}>
+                        <Image source={require('../../assets/print.png')} />
+                        <Text style={{fontSize: 19, color: '#fff', fontWeight: '600'}}>Yazdır</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
         );
     }
@@ -103,7 +135,7 @@ const styles = StyleSheet.create({
         height:height * 0.9,
     },
     cartBody:{
-        flex:2,
+        flex:1,
     },
     cartBox:{
         width:width * 0.9,
@@ -111,6 +143,12 @@ const styles = StyleSheet.create({
         flexDirection:'row',
         justifyContent:'space-between',
         alignItems:'center',
+        borderColor: '#ebebeb',
+        borderWidth: 1,
+        marginBottom:10,
+        paddingLeft:15,
+        paddingRight: 15,
+        borderRadius: 5,
     },
     cartRow:{
         width:width * 0.9,
@@ -118,20 +156,63 @@ const styles = StyleSheet.create({
         height:1,
     },
     cartFooter:{
-        flex:1,
         flexDirection:'row',
         justifyContent:'space-between',
         alignItems:'center',
         width: width * 0.9,
         height:height * 0.07,
-    }
+        paddingLeft: 15,
+        paddingRight: 15,
+    },
+    footerText: {
+        fontSize: 11,
+        fontWeight: '300',
+        marginBottom: 5,
+        paddingLeft: 15,
+        paddingRight: 15,
+    },
+    buttonContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        width: width,
+        height: height * 0.13,
+      },
+      buttonBox: {
+        width: width * 0.4,
+        height: height * 0.05,
+        backgroundColor: '#3ec978',
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
+        alignItems: 'center',
+        borderRadius: 10,
+      },
+      buttonBox1: {
+        width: height * 0.04,
+        height: height * 0.04,
+        backgroundColor: '#3ec978',
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
+        alignItems: 'center',
+        borderRadius: 150,
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 4,
+        },
+        shadowOpacity: 0.32,
+        shadowRadius: 5.46,
+        elevation: 9,
+      },
 });
 
 const mapToStateProps = state => {
-    console.log('Cart State------------>', state.order.activeOrder);
+    console.log('Cart State------------>', state.orderDetail);
     return {
-        orderList: state.order.activeOrder,
+        orderDetailList: state.orderDetail.orderDetailList,
         activeTables: state.table.activeTable,
+        products: state.product.products,
+        activeOrders: state.order.activeOrder,
     };
 };
 

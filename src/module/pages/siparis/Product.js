@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {Component} from 'react';
 import {
   Text,
@@ -14,17 +15,26 @@ import * as actions from '../../../actions';
 import {connect} from 'react-redux';
 import Input from '../../component/Input';
 import {Actions} from 'react-native-router-flux';
+import ModalSelector from 'react-native-modal-selector';
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
 
 class Product extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      textInputValue: '',
+    };
+  }
   addToOrderDetails = (product, count) => {
     let orderDetail = {
       orderDetailId: 0,
       orderId: this.props.activeOrders.orderId,
       productId: product.productId,
       productName: product.name,
+      productPrice: product.price,
       portion: 'exercitation reprehenderit eu',
       count: count,
     };
@@ -47,7 +57,7 @@ class Product extends Component {
     return 0;
   };
   render() {
-    const {products} = this.props;
+    const {products, menus} = this.props;
     return (
       <View style={styles.container}>
         <View style={styles.banner}>
@@ -72,7 +82,7 @@ class Product extends Component {
                 />
               </TouchableOpacity>
             </View>
-            <Text style={{color: '#fff', fontSize: 15}}>
+            <Text style={{color: '#fff', fontSize: 16, fontWeight: '600'}}>
               Yeni Sipariş / {this.props.activeTables.name}{' '}
             </Text>
           </View>
@@ -81,6 +91,13 @@ class Product extends Component {
         <View>
           <Input full placeholder="Menüde Arama Yapın..." />
         </View>
+        {/* <ModalSelector
+          data={menus}
+          initValue="Menü Değiştirin!"
+          onChange={option => {
+            this.setState({textInputValue: option.name});
+          }}
+        /> */}
         <FlatList
           data={products}
           renderItem={({item, index}) => (

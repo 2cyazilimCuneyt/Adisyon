@@ -9,7 +9,6 @@ import {
   FlatList,
   ScrollView,
   Platform,
-  TouchableHighlight,
 } from 'react-native';
 import {Actions} from 'react-native-router-flux';
 import {connect} from 'react-redux';
@@ -87,7 +86,10 @@ class Table extends Component {
                 style={{width: width * 0.07, height: width * 0.07}}
               />
             </TouchableOpacity>
-            <Text style={{color: '#fff', fontSize: 15}}>Sipariş / </Text>
+            <Text style={{color: '#fff', fontSize: 16, fontWeight: '600'}}>
+              {' '}
+              Sipariş /{' '}
+            </Text>
           </View>
         </View>
         <ScrollView style={{width: width, marginVertical: 20}}>
