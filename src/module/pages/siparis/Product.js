@@ -57,7 +57,7 @@ class Product extends Component {
     return 0;
   };
   render() {
-    const {products, menus} = this.props;
+    const {products} = this.props;
     return (
       <View style={styles.container}>
         <View style={styles.banner}>

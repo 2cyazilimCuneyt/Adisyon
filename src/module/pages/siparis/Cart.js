@@ -9,6 +9,8 @@ import {Actions} from 'react-native-router-flux';
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
 
+
+
 class Cart extends Component {
       addToOrderDetails = (product, count) => {
         let orderDetail = {
@@ -27,20 +29,17 @@ class Cart extends Component {
         this.props.saveOrderDetailList(this.props.orderDetailList);
       };
 
-      selectedCount = product => {
+    selectedCount = product => {
         try {
-          let selected = this.props.orderDetailList.filter(item => {
+            let selected = this.props.orderDetailList.filter(item => {
             return item.productId === product.productId;
-          });
-          if (selected.length > 0) {
+            });
+            if (selected.length > 0) {
             return selected[0].count;
-          }
+            }
         } catch {}
         return 0;
-      };
-      totalPrice = () => {
-
-      }
+    };
     render() {
         return (
             <View style={styles.container}>
@@ -68,7 +67,7 @@ class Cart extends Component {
                                             </TouchableOpacity>
                                         </View>
                                         <Text style={{width:width * 0.5}}>Tam - {item.productName}</Text>
-                                        <Text>₺ {item.productPrice}</Text>
+                                        <Text>₺ {item.productPrice * item.count}</Text>
                                     </View>
                                 </View>
                             )}
@@ -168,8 +167,6 @@ const styles = StyleSheet.create({
         fontSize: 11,
         fontWeight: '300',
         marginBottom: 5,
-        paddingLeft: 15,
-        paddingRight: 15,
     },
     buttonContainer: {
         flexDirection: 'row',
@@ -207,8 +204,9 @@ const styles = StyleSheet.create({
 });
 
 const mapToStateProps = state => {
-    console.log('Cart State------------>', state.orderDetail);
+    console.log('Cart State------------>', state);
     return {
+        orders: state.order.activeOrder,
         orderDetailList: state.orderDetail.orderDetailList,
         activeTables: state.table.activeTable,
         products: state.product.products,
