@@ -158,7 +158,7 @@ class Product extends Component {
                 borderRadius: 15,
               }}>
               <Text style={{fontSize: 16, color: '#fff', fontWeight: '600'}}>
-                0
+                {this.props.orderDetailList.length}
               </Text>
             </View>
             <Text style={{fontSize: 19, color: '#fff', fontWeight: '600'}}>

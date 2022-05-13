@@ -29,6 +29,14 @@ class Cart extends Component {
         this.props.saveOrderDetailList(this.props.orderDetailList);
       };
 
+      total = () => {
+          let toplam = 0;
+        this.props.orderDetailList.forEach(element => {
+            toplam= toplam + (element.count * element.productPrice);
+        });
+        return toplam;
+      }
+
     selectedCount = product => {
         try {
             let selected = this.props.orderDetailList.filter(item => {
@@ -78,7 +86,7 @@ class Cart extends Component {
                 <View style={styles.cartFooter}>
                     <View>
                         <Text style={styles.footerText}>Toplam Tutar</Text>
-                        <Text>₺ 0.00</Text>
+                        <Text>₺ {this.total()}</Text>
                     </View>
                     <View>
                         <Text style={styles.footerText}>İndirim</Text>
@@ -90,7 +98,7 @@ class Cart extends Component {
                     </View>
                     <View>
                         <Text style={styles.footerText}>Kalan</Text>
-                        <Text>₺ 0.00</Text>
+                        <Text>₺ {this.total()}</Text>
                     </View>
                 </View>
                 <View style={styles.buttonContainer}>
