@@ -10,6 +10,7 @@ export const ACTIVE_ROOM = 'active_room';
 
 export const TABLE_LIST = 'table_list';
 export const ACTIVE_TABLE = 'active_table';
+export const TABLE_STATUS = 'table_status';
 
 export const MENU_LIST = 'menu_list';
 

@@ -12,6 +12,9 @@ const height = Dimensions.get('window').height;
 
 
 class Cart extends Component {
+   /*  state = {
+        toplam: 0,
+      }; */
       addToOrderDetails = (product, count) => {
         let orderDetail = {
             orderDetailId: 0,
@@ -32,7 +35,7 @@ class Cart extends Component {
       total = () => {
           let toplam = 0;
         this.props.orderDetailList.forEach(element => {
-            toplam= toplam + (element.count * element.productPrice);
+            toplam = toplam + (element.count * element.productPrice);
         });
         return toplam;
       }

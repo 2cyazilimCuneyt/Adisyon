@@ -15,19 +15,11 @@ import * as actions from '../../../actions';
 import {connect} from 'react-redux';
 import Input from '../../component/Input';
 import {Actions} from 'react-native-router-flux';
-import ModalSelector from 'react-native-modal-selector';
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
 
 class Product extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      textInputValue: '',
-    };
-  }
   addToOrderDetails = (product, count) => {
     let orderDetail = {
       orderDetailId: 0,
@@ -91,13 +83,6 @@ class Product extends Component {
         <View>
           <Input full placeholder="Menüde Arama Yapın..." />
         </View>
-        {/* <ModalSelector
-          data={menus}
-          initValue="Menü Değiştirin!"
-          onChange={option => {
-            this.setState({textInputValue: option.name});
-          }}
-        /> */}
         <FlatList
           data={products}
           renderItem={({item, index}) => (
