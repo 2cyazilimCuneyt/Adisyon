@@ -37,6 +37,7 @@ export const updateOrderDetailList = (orderDetail, orderDetailList) => {
 };
 
 export const saveOrderDetailList = orderDetailList => {
+  console.log('1---------->', orderDetailList);
   return dispatch => {
     axios
       .post(
@@ -44,6 +45,7 @@ export const saveOrderDetailList = orderDetailList => {
         orderDetailList,
       )
       .then(response => {
+        console.log('2---------->', response.data);
         dispatch({
           type: SAVE_ORDER_DETAIL_LIST,
           payload: response.data,

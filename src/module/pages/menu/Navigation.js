@@ -22,7 +22,7 @@ export default class Navigation extends Component {
             onPress={() => Actions.drawerClose()}
             style={{
               flex: 1,
-              display:'flex',
+              display: 'flex',
               flexDirection: 'row',
               alignItems: 'flex-end',
               justifyContent: 'flex-end',
