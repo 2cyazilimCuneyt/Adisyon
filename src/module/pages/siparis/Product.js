@@ -27,19 +27,22 @@ class Product extends Component {
       productId: product.productId,
       productName: product.name,
       productPrice: product.price,
-      portion: 'exercitation reprehenderit eu',
+      portion: '',
       count: count,
     };
-    this.props.updateOrderDetailList(orderDetail, this.props.orderDetailList);
+    this.props.updateOrderDetailList(
+      orderDetail,
+      this.props.activeOrderDetailList,
+    );
   };
 
   saveDetailList = () => {
-    this.props.saveOrderDetailList(this.props.orderDetailList);
+    this.props.saveOrderDetailList(this.props.activeOrderDetailList);
   };
 
   selectedCount = product => {
     try {
-      let selected = this.props.orderDetailList.filter(item => {
+      let selected = this.props.activeOrderDetailList.filter(item => {
         return item.productId === product.productId;
       });
       if (selected.length > 0) {
@@ -48,6 +51,7 @@ class Product extends Component {
     } catch {}
     return 0;
   };
+
   render() {
     const {products} = this.props;
     return (
@@ -130,7 +134,7 @@ class Product extends Component {
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => Actions.Cart(this.props.orderDetailList)}
+            onPress={() => Actions.Cart(this.props.activeOrderDetailList)}
             style={styles.buttonBox1}>
             <View
               style={{
@@ -143,7 +147,7 @@ class Product extends Component {
                 borderRadius: 15,
               }}>
               <Text style={{fontSize: 16, color: '#fff', fontWeight: '600'}}>
-                {this.props.orderDetailList.length}
+                {this.props.activeOrderDetailList.length}
               </Text>
             </View>
             <Text style={{fontSize: 19, color: '#fff', fontWeight: '600'}}>
@@ -238,9 +242,10 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => {
   return {
     products: state.product.products,
+    activeRooms: state.room.activeRoom,
     activeTables: state.table.activeTable,
     activeOrders: state.order.activeOrder,
-    orderDetailList: state.orderDetail.orderDetailList,
+    activeOrderDetailList: state.orderDetail.activeOrderDetailList,
   };
 };
 

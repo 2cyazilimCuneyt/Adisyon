@@ -18,10 +18,23 @@ export default class Navigation extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.banner}>
+          <TouchableOpacity
+            onPress={() => Actions.drawerClose()}
+            style={{
+              flex: 1,
+              display:'flex',
+              flexDirection: 'row',
+              alignItems: 'flex-end',
+              justifyContent: 'flex-end',
+              marginRight: 20,
+              marginBottom: 40,
+            }}>
+            <Image source={require('../../assets/close.png')} />
+          </TouchableOpacity>
           <Text style={styles.bannerTitle}>Menü</Text>
         </View>
         <View style={styles.menuContainer}>
-          <View>
+          <View style={styles.menuContent}>
             {/* <TouchableOpacity style={styles.menuBox} onPress={() => Actions.Anasayfa()}>
                             <View style={{flexDirection:'row',alignItems:'center'}}>
                                 <Image/>
@@ -38,7 +51,7 @@ export default class Navigation extends Component {
               </View>
               <Image />
             </TouchableOpacity>
-            <TouchableOpacity
+            {/* <TouchableOpacity
               style={styles.menuBox}
               onPress={() => Actions.Mutfak()}>
               <View style={{flexDirection: 'row', alignItems: 'center'}}>
@@ -46,9 +59,9 @@ export default class Navigation extends Component {
                 <Text>Mutfak</Text>
               </View>
               <Image />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
-          <Button onPress={() => Actions.drawerClose()} title="Çıkış Yap" />
+          <Button title="Çıkış Yap" color={'#3ec978'} />
         </View>
       </View>
     );
@@ -63,17 +76,20 @@ const styles = StyleSheet.create({
   banner: {
     backgroundColor: '#3ec978',
     width: width * 0.8,
-    height: 150,
+    height: height * 0.18,
     justifyContent: 'flex-end',
-    alignItems: 'center',
   },
   bannerTitle: {
     color: '#fff',
     fontWeight: '600',
     fontSize: 20,
+    textAlign: 'center',
   },
   menuContainer: {
     marginVertical: 30,
+  },
+  menuContent: {
+    height: height * 0.7,
   },
   menuBox: {
     height: 46,

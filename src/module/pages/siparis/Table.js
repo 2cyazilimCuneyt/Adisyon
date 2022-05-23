@@ -12,23 +12,29 @@ import {
 } from 'react-native';
 import {Actions} from 'react-native-router-flux';
 import {connect} from 'react-redux';
-import {
-  getRoomList,
-  getTableList,
-  activeTable,
-  addToOrder,
-  orderDetailInitial,
-  activeRoom,
-} from '../../../actions';
+import * as actions from '../../../actions';
 import ModalDropdown from 'react-native-modal-dropdown';
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
 
 class Table extends Component {
-  state = {
-    roomName: 'ODA SEÇİNİZ..',
-  };
+  constructor() {
+    super();
+
+    var today = new Date(),
+      date =
+        today.getFullYear() +
+        '-' +
+        (today.getMonth() + 1) +
+        '-' +
+        today.getDate();
+
+    this.state = {
+      date: date,
+      roomName: 'Oda Seçiniz..',
+    };
+  }
   UNSAFE_componentWillMount() {
     this.props.getRoomList();
   }
@@ -39,22 +45,35 @@ class Table extends Component {
     });
     this.setState({roomName: a[0].name});
     this.props.getTableList(roomId);
+    /* 
+    this.props.getOrderByTableId(roomId); */
   };
 
   onPressedTable = table => {
-    this.props.activeTable(table);
-    Actions.Menus();
-    let order = {
-      orderId: 0,
-      tableId: table.tableId,
-      date: '1972-07-17T03:55:52.590Z',
-      description: 'sint sed',
-      userId: 0,
-      isClosed: false,
-      isReady: false,
-      totalPrice: 0,
-    };
-    this.props.addToOrder(order);
+    if (table.statu === 0) {
+      this.props.activeTable(table);
+
+      let order = {
+        orderId: 0,
+        tableId: table.tableId,
+        date: new Date(),
+        description: 'sint sed',
+        userId: 0,
+        isClosed: false,
+        isReady: false,
+        totalPrice: 0,
+        closeDate: new Date(),
+      };
+      this.props.addToOrder(order);
+      Actions.Menus();
+    } else if (table.statu === 1) {
+      this.props.getOrderByTableId(table.tableId);
+      if (this.props.activeOrders.orderId !== 0) {
+        this.props.activeTable(table);
+        this.props.getOrderDetailList(this.props.activeOrders.orderId);
+      }
+      Actions.Menus();
+    }
   };
 
   _dropdown_2_renderButtonText(rowData) {
@@ -92,32 +111,8 @@ class Table extends Component {
             </Text>
           </View>
         </View>
-        <ScrollView style={{width: width, marginVertical: 20}}>
+        <View style={{width: width, height: height * 0.84, marginVertical: 20}}>
           <View style={styles.siparisContainer}>
-            {/* <ScrollView horizontal={true}>
-              <FlatList
-                data={rooms}
-                numColumns={30}
-                renderItem={({item, index}) => (
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                      marginVertical: 10,
-                    }}>
-                    <TouchableOpacity
-                      style={styles.roomBox}
-                      onPress={() => this.onPressed(item.roomId)}>
-                      <Text style={styles.roomText}> {item.name} </Text>
-                    </TouchableOpacity>
-                  </View>
-                )}
-                keyExtractor={item => item.roomId}
-                style={{marginHorizontal: 23}}
-              />
-            </ScrollView> */}
-
             <ModalDropdown
               options={rooms}
               style={styles.roomBox}
@@ -149,7 +144,13 @@ class Table extends Component {
                   <TouchableOpacity
                     style={styles.siparisBox}
                     onPress={() => this.onPressedTable(item)}>
-                    <Text style={styles.siparisText}> {item.name} </Text>
+                    {item.statu === 0 ? (
+                      <Text style={styles.siparisText}>{item.name}</Text>
+                    ) : item.statu === 1 ? (
+                      <Text style={styles.siparisText1}>{item.name}</Text>
+                    ) : (
+                      <Text style={styles.siparisText2}>{item.name}</Text>
+                    )}
                   </TouchableOpacity>
                 </View>
               )}
@@ -170,7 +171,8 @@ class Table extends Component {
                     width: 12,
                     height: 12,
                     backgroundColor: '#5CA026',
-                  }}></View>
+                  }}
+                />
                 <Text style={{fontSize: 10, color: '#5CA026', marginLeft: 5}}>
                   Sipariş Masada
                 </Text>
@@ -181,7 +183,8 @@ class Table extends Component {
                     width: 12,
                     height: 12,
                     backgroundColor: '#FF554A',
-                  }}></View>
+                  }}
+                />
                 <Text style={{fontSize: 10, color: '#FF554A', marginLeft: 5}}>
                   Sipariş Bekleniyor
                 </Text>
@@ -192,14 +195,15 @@ class Table extends Component {
                     width: 12,
                     height: 12,
                     backgroundColor: '#9d9d9d',
-                  }}></View>
+                  }}
+                />
                 <Text style={{fontSize: 10, color: '#9d9d9d', marginLeft: 5}}>
                   Masa Boş
                 </Text>
               </View>
             </View>
           </View>
-        </ScrollView>
+        </View>
       </View>
     );
   }
@@ -238,11 +242,14 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
     borderColor: '#3ec978',
     borderWidth: 1,
+    marginBottom: 10,
   },
   defaultText: {
-    fontSize: 14,
-    fontWeight: '500',
+    fontSize: 16,
+    fontWeight: '600',
     color: '#9d9d9d',
+    width: width * 0.7,
+    textAlign: 'center',
   },
   roomText: {
     fontSize: 15,
@@ -251,8 +258,10 @@ const styles = StyleSheet.create({
     letterSpacing: 1,
   },
   dropdown: {
-    height: height * 0.3,
+    height: height * 0.45,
     borderRadius: 3,
+    width: width * 0.7,
+    marginTop: 13,
   },
   dropdownText: {
     fontSize: 13,
@@ -262,7 +271,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     height: 40,
     alignItems: 'center',
-    marginHorizontal: 20,
+    justifyContent: 'center',
   },
   dropdown_2_row_text: {
     marginHorizontal: 4,
@@ -283,6 +292,16 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: '#9d9d9d',
   },
+  siparisText1: {
+    fontSize: 17,
+    fontWeight: '700',
+    color: '#FF554A',
+  },
+  siparisText2: {
+    fontSize: 17,
+    fontWeight: '700',
+    color: '#5CA026',
+  },
 });
 
 const mapToStateProps = state => {
@@ -291,14 +310,8 @@ const mapToStateProps = state => {
     rooms: state.room.rooms,
     tables: state.table.tables,
     activeRooms: state.room.activeRoom,
+    activeOrders: state.order.activeOrder,
   };
 };
 
-export default connect(mapToStateProps, {
-  getRoomList,
-  getTableList,
-  activeTable,
-  addToOrder,
-  orderDetailInitial,
-  activeRoom,
-})(Table);
+export default connect(mapToStateProps, actions)(Table);

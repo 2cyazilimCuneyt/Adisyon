@@ -2,7 +2,6 @@ import {combineReducers} from 'redux';
 import AuthReducer from './authReducer';
 import RoomReducer from './roomReducer';
 import TableReducer from './tableReducer';
-import TableStatusReducer from './tableStatusReducer';
 import MenuReducer from './menuReducer';
 import ProductReducer from './productReducer';
 import OrderReducer from './orderReducer';
@@ -16,5 +15,4 @@ export default combineReducers({
   product: ProductReducer,
   order: OrderReducer,
   orderDetail: OrderDetailListReducer,
-  tableStatus: TableStatusReducer,
 });

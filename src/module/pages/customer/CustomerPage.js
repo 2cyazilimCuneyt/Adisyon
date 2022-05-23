@@ -35,7 +35,8 @@ export default class CustomerPage extends Component {
             <TouchableOpacity
               enabled={true}
               style={styles.waiterButton}
-              onPress={() => Actions.SmsOnay()}>
+              /* onPress={() => Actions.SmsOnay()} */
+            >
               <Image
                 source={require('../../assets/images/waiter.png')}
                 style={styles.icon}

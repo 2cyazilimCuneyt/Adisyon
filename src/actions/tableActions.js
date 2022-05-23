@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {TABLE_LIST, ACTIVE_TABLE} from './types';
+import {TABLE_LIST, ACTIVE_TABLE, STATUS_TABLE} from './types';
 
 const API_URL =
   'https://api.terracesarkoy.com/api/Admin/GetTableListByRoomId?RoomId=';

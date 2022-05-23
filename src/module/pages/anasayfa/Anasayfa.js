@@ -24,7 +24,6 @@ class Anasayfa extends Component {
       email: this.props.user.email,
       password: this.props.user.password,
     };
-    console.log('user bilgisi <>>>>>>> ' + JSON.stringify(this.props.user));
     /*  
         try {
         let fcmtoken = await AsyncStorage.getItem('fcmToken');
