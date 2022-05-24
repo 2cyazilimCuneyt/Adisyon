@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import { Text, StyleSheet, View } from 'react-native';
+import React, {Component} from 'react';
+import {StyleSheet} from 'react-native';
 import DrawerNavigator from './src/module/navigation/DrawerNavigator';
 // import firebase from 'firebase';
-import { Provider } from 'react-redux';
-import { applyMiddleware, createStore } from 'redux';
+import {Provider} from 'react-redux';
+import {applyMiddleware, createStore} from 'redux';
 import ReduxThunk from 'redux-thunk';
 import reducers from './src/reducers';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -23,7 +23,7 @@ class App extends Component {
     )
   } */
 
- /*  async getToken() {
+  /*  async getToken() {
     var fcmToken = await AsyncStorage.getItem('fcmToken');
     console.log('fcmToken:   ' + fcmToken);
     if(!fcmToken) {
@@ -43,12 +43,12 @@ class App extends Component {
     const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
     return (
       <Provider store={store}>
-        <DrawerNavigator/>
+        <DrawerNavigator />
       </Provider>
-    )
+    );
   }
 }
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({});
 
 export default App;

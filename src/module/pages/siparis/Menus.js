@@ -1,5 +1,4 @@
 /* eslint-disable prettier/prettier */
-import _ from 'lodash';
 import React, { Component } from 'react';
 import { Text, StyleSheet, View, Image, Dimensions , FlatList, TouchableOpacity, Platform } from 'react-native';
 import { connect } from 'react-redux';
@@ -32,15 +31,15 @@ class Menus extends Component {
             <View style={styles.container}>
                 <View style={styles.banner}>
                     <View style={styles.bannerContainer}>
-                        <View style={{width:width*0.15, flexDirection:'row', justifyContent:'space-between', alignItems:'center'}}>
+                        <View style={{width:width * 0.15, flexDirection:'row', justifyContent:'space-between', alignItems:'center'}}>
                             <TouchableOpacity onPress={() => Actions.Table()}>
-                                <Image source={require('../../assets/images/left.png')} style={{width:width*0.07, height:width*0.07}}/>
+                                <Image source={require('../../assets/images/left.png')} style={{width:width * 0.07, height:width * 0.07}}/>
                             </TouchableOpacity>
                             <TouchableOpacity onPress={() => Actions.drawerOpen()}>
-                                <Image source={require('../../assets/images/menu.png')} style={{width:width*0.07, height:width*0.07}}/>
+                                <Image source={require('../../assets/images/menu.png')} style={{width:width * 0.07, height:width * 0.07}}/>
                             </TouchableOpacity>
                         </View>
-                        <Text style={{color:'#fff', fontSize:16, fontWeight: '600'}}>Yeni Sipariş / {this.props.activeTables.name} </Text>
+                        <Text style={{color: '#fff', fontSize: 16, fontWeight: '600'}}>Yeni Sipariş / {this.props.activeTables.name} </Text>
                     </View>
                 </View>
                 <View>
@@ -58,6 +57,31 @@ class Menus extends Component {
                     keyExtractor={(item)=> item.menuId}
                     style={styles.menuContainerBox}
                 />
+
+                <View style={styles.buttonContainer}>
+                    <TouchableOpacity
+                        key={this.props.activeOrderDetailList.orderDetailId}
+                        onPress={() => Actions.Cart(this.props.activeOrderDetailList)}
+                        style={styles.buttonBox1}>
+                        <View
+                            style={{
+                                borderColor: '#fff',
+                                borderWidth: 2,
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                height: 30,
+                                width: 30,
+                                borderRadius: 15,
+                            }}>
+                                <Text style={{fontSize: 16, color: '#fff', fontWeight: '600'}}>
+                                    {this.props.activeOrderDetailList.length}
+                                </Text>
+                            </View>
+                            <Text style={{fontSize: 19, color: '#fff', fontWeight: '600'}}>
+                                Sipariş Detay
+                            </Text>
+                    </TouchableOpacity>
+                </View>
             </View>
         )
     }
@@ -96,6 +120,32 @@ const styles = StyleSheet.create({
         marginHorizontal:10,
         marginVertical:10,
     },
+    buttonContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: width,
+        height: height * 0.13,
+      },
+      buttonBox: {
+        width: width * 0.33,
+        height: height * 0.06,
+        backgroundColor: '#3ec978',
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
+        alignItems: 'center',
+        borderRadius: 10,
+      },
+      buttonBox1: {
+        width: width * 0.5,
+        height: height * 0.06,
+        backgroundColor: '#3ec978',
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
+        alignItems: 'center',
+        borderRadius: 10,
+        marginLeft: 15,
+      },
 });
 
 const mapStateToProps = state => {
@@ -103,6 +153,8 @@ const mapStateToProps = state => {
         menus:state.menu.menus,
         products: state.product.products,
         activeTables: state.table.activeTable,
+        activeOrders: state.order.activeOrder,
+        activeOrderDetailList: state.orderDetail.activeOrderDetailList,
      };
 };
 

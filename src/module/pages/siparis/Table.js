@@ -7,8 +7,9 @@ import {
   TouchableOpacity,
   Dimensions,
   FlatList,
-  ScrollView,
   Platform,
+  RefreshControl,
+  ActivityIndicator,
 } from 'react-native';
 import {Actions} from 'react-native-router-flux';
 import {connect} from 'react-redux';
@@ -33,8 +34,13 @@ class Table extends Component {
     this.state = {
       date: date,
       roomName: 'Oda Seçiniz..',
+      loading: false,
+      refreshing: false,
     };
   }
+
+  _handleRefresh = () => {};
+
   UNSAFE_componentWillMount() {
     this.props.getRoomList();
   }
@@ -57,7 +63,7 @@ class Table extends Component {
         orderId: 0,
         tableId: table.tableId,
         date: new Date(),
-        description: 'sint sed',
+        description: '',
         userId: 0,
         isClosed: false,
         isReady: false,
@@ -68,11 +74,16 @@ class Table extends Component {
       Actions.Menus();
     } else if (table.statu === 1) {
       this.props.getOrderByTableId(table.tableId);
-      if (this.props.activeOrders.orderId !== 0) {
-        this.props.activeTable(table);
+      this.setState({loading: true});
+      setTimeout(() => {
         this.props.getOrderDetailList(this.props.activeOrders.orderId);
-      }
-      Actions.Menus();
+        this.props.activeTable(table);
+        setTimeout(() => {
+          Actions.Menus();
+          this.setState({loading: false});
+        }, 3000);
+      }, 3000);
+      console.log('order', this.props.activeOrders);
     }
   };
 
@@ -133,6 +144,12 @@ class Table extends Component {
                 width: width * 0.8,
               }}
               numColumns={3}
+              refreshControl={
+                <RefreshControl
+                  refreshing={this.state.refreshing}
+                  onRefresh={this._handleRefresh}
+                />
+              }
               renderItem={({item, index}) => (
                 <View
                   style={{
@@ -142,9 +159,16 @@ class Table extends Component {
                     marginVertical: 10,
                   }}>
                   <TouchableOpacity
+                    loading={this.state.loading}
                     style={styles.siparisBox}
                     onPress={() => this.onPressedTable(item)}>
-                    {item.statu === 0 ? (
+                    {this.state.loading ? (
+                      <ActivityIndicator
+                        size="small"
+                        color={'#535353'}
+                        animating={this.state.loading}
+                      />
+                    ) : item.statu === 0 ? (
                       <Text style={styles.siparisText}>{item.name}</Text>
                     ) : item.statu === 1 ? (
                       <Text style={styles.siparisText1}>{item.name}</Text>
@@ -161,23 +185,16 @@ class Table extends Component {
               style={{
                 flexDirection: 'row',
                 alignItems: 'center',
-                justifyContent: 'space-between',
+                justifyContent: 'center',
                 width: width * 0.8,
                 marginVertical: 30,
               }}>
-              <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                <View
-                  style={{
-                    width: 12,
-                    height: 12,
-                    backgroundColor: '#5CA026',
-                  }}
-                />
-                <Text style={{fontSize: 10, color: '#5CA026', marginLeft: 5}}>
-                  Sipariş Masada
-                </Text>
-              </View>
-              <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  marginRight: 20,
+                }}>
                 <View
                   style={{
                     width: 12,
@@ -186,7 +203,7 @@ class Table extends Component {
                   }}
                 />
                 <Text style={{fontSize: 10, color: '#FF554A', marginLeft: 5}}>
-                  Sipariş Bekleniyor
+                  Açık Masa
                 </Text>
               </View>
               <View style={{flexDirection: 'row', alignItems: 'center'}}>
@@ -311,6 +328,7 @@ const mapToStateProps = state => {
     tables: state.table.tables,
     activeRooms: state.room.activeRoom,
     activeOrders: state.order.activeOrder,
+    activeTables: state.table.activeTable,
   };
 };
 
