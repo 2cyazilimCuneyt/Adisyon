@@ -57,6 +57,7 @@ class Table extends Component {
 
   onPressedTable = table => {
     if (table.statu === 0) {
+      this.setState({loading: true});
       this.props.activeTable(table);
 
       let order = {
@@ -72,9 +73,10 @@ class Table extends Component {
       };
       this.props.addToOrder(order);
       Actions.Menus();
+      this.setState({loading: false});
     } else if (table.statu === 1) {
-      this.props.getOrderByTableId(table.tableId);
       this.setState({loading: true});
+      this.props.getOrderByTableId(table.tableId);
       setTimeout(() => {
         this.props.getOrderDetailList(this.props.activeOrders.orderId);
         this.props.activeTable(table);
@@ -83,7 +85,6 @@ class Table extends Component {
           this.setState({loading: false});
         }, 3000);
       }, 3000);
-      console.log('order', this.props.activeOrders);
     }
   };
 
@@ -162,13 +163,7 @@ class Table extends Component {
                     loading={this.state.loading}
                     style={styles.siparisBox}
                     onPress={() => this.onPressedTable(item)}>
-                    {this.state.loading ? (
-                      <ActivityIndicator
-                        size="small"
-                        color={'#535353'}
-                        animating={this.state.loading}
-                      />
-                    ) : item.statu === 0 ? (
+                    {item.statu === 0 ? (
                       <Text style={styles.siparisText}>{item.name}</Text>
                     ) : item.statu === 1 ? (
                       <Text style={styles.siparisText1}>{item.name}</Text>
@@ -221,6 +216,14 @@ class Table extends Component {
             </View>
           </View>
         </View>
+        {this.state.loading ? (
+          <ActivityIndicator
+            size="large"
+            color={'#3ec978'}
+            animating={this.state.loading}
+            style={styles.activityIndicator}
+          />
+        ) : null}
       </View>
     );
   }
@@ -318,6 +321,18 @@ const styles = StyleSheet.create({
     fontSize: 17,
     fontWeight: '700',
     color: '#5CA026',
+  },
+  activityIndicator: {
+    width: width,
+    height: height,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(255, 255, 255, 0.6)',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
   },
 });
 

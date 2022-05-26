@@ -40,13 +40,13 @@ export const saveOrderDetailList = orderDetailList => {
   return dispatch => {
     axios
       .post(
-        'https://api.terracesarkoy.com/api/Order/AddOrderDetailList',
+        'https://api.terracesarkoy.com/api/Order/UpdateOrderDetailList',
         orderDetailList,
       )
       .then(response => {
         dispatch({
           type: SAVE_ORDER_DETAIL_LIST,
-          payload: response.data,
+          payload: response.data.data,
         });
       });
   };
