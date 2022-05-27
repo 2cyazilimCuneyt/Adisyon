@@ -10,6 +10,7 @@ import {
   Platform,
   RefreshControl,
   ActivityIndicator,
+  Button,
 } from 'react-native';
 import {Actions} from 'react-native-router-flux';
 import {connect} from 'react-redux';
@@ -36,10 +37,9 @@ class Table extends Component {
       roomName: 'Oda Seçiniz..',
       loading: false,
       refreshing: false,
+      roomId: 0,
     };
   }
-
-  _handleRefresh = () => {};
 
   UNSAFE_componentWillMount() {
     this.props.getRoomList();
@@ -49,10 +49,8 @@ class Table extends Component {
     let a = this.props.rooms.filter(item => {
       return item.roomId === roomId;
     });
-    this.setState({roomName: a[0].name});
+    this.setState({roomName: a[0].name, roomId: roomId});
     this.props.getTableList(roomId);
-    /* 
-    this.props.getOrderByTableId(roomId); */
   };
 
   onPressedTable = table => {
@@ -105,18 +103,40 @@ class Table extends Component {
     );
   }
 
+  _handleRefresh = () => {
+    this.setState({refreshing: true});
+
+    setTimeout(() => {
+      this.props.getTableList(this.state.roomId);
+      this.setState({refreshing: false});
+    }, 3000);
+  };
+
   render() {
     const {rooms, tables} = this.props;
     return (
       <View style={styles.container}>
         <View style={styles.banner}>
           <View style={styles.bannerContainer}>
-            <TouchableOpacity onPress={() => Actions.drawerOpen()}>
-              <Image
-                source={require('../../assets/images/menu.png')}
-                style={{width: width * 0.07, height: width * 0.07}}
-              />
-            </TouchableOpacity>
+            <View
+              style={{
+                width: width * 0.19,
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+              }}>
+              <TouchableOpacity onPress={() => Actions.drawerOpen()}>
+                <Image
+                  source={require('../../assets/images/menu.png')}
+                  style={{width: width * 0.07, height: width * 0.07}}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity onPress={this._handleRefresh}>
+                <Image
+                  source={require('../../assets/images/yenile.png')}
+                  style={{width: width * 0.07, height: width * 0.07}}
+                />
+              </TouchableOpacity>
+            </View>
             <Text style={{color: '#fff', fontSize: 16, fontWeight: '600'}}>
               {' '}
               Sipariş /{' '}
@@ -137,7 +157,7 @@ class Table extends Component {
               dropdownStyle={styles.dropdown}
               dropdownTextStyle={styles.dropdownText}
             />
-
+            {this.state.refreshing ? <ActivityIndicator /> : null}
             <FlatList
               data={tables}
               columnWrapperStyle={{
@@ -145,12 +165,6 @@ class Table extends Component {
                 width: width * 0.8,
               }}
               numColumns={3}
-              refreshControl={
-                <RefreshControl
-                  refreshing={this.state.refreshing}
-                  onRefresh={this._handleRefresh}
-                />
-              }
               renderItem={({item, index}) => (
                 <View
                   style={{

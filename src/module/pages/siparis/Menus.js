@@ -39,7 +39,7 @@ class Menus extends Component {
                                 <Image source={require('../../assets/images/menu.png')} style={{width:width * 0.07, height:width * 0.07}}/>
                             </TouchableOpacity>
                         </View>
-                        <Text style={{color: '#fff', fontSize: 16, fontWeight: '600'}}>Yeni Sipariş / {this.props.activeTables.name} </Text>
+                        <Text style={{color: '#fff', fontSize: 16, fontWeight: '600'}}>{this.props.activeTables.name} </Text>
                     </View>
                 </View>
                 <View>
@@ -152,6 +152,7 @@ const mapStateToProps = state => {
      return {
         menus:state.menu.menus,
         products: state.product.products,
+        activeRoom: state.room.activeRoom,
         activeTables: state.table.activeTable,
         activeOrders: state.order.activeOrder,
         activeOrderDetailList: state.orderDetail.activeOrderDetailList,

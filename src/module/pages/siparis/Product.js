@@ -79,7 +79,7 @@ class Product extends Component {
               </TouchableOpacity>
             </View>
             <Text style={{color: '#fff', fontSize: 16, fontWeight: '600'}}>
-              Yeni Sipariş / {this.props.activeTables.name}{' '}
+              {this.props.activeTables.name}
             </Text>
           </View>
         </View>
