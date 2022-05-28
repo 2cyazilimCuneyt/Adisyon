@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
   },
 });
 const mapStateToProps = state => {
-  const {/* email, password, */ loading, error} = state.auth;
+  const {email, password, loading, error} = state.auth;
   return {
     email: 'cuneyt@2cyazilim.net',
     password: 'c4c14c41Xx*',

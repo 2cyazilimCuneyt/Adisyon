@@ -92,7 +92,7 @@ export const login = (email, password) => {
     });
 
     axios
-      .post('https://api.terracesarkoy.com' + '/api/Auth/login', {
+      .post('https://api.terracesarkoy.com/api/Auth/login', {
         email,
         password,
       })

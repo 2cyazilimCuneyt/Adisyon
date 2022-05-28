@@ -4,10 +4,16 @@ import { ADD_ORDER, GET_ORDER_LIST, GET_ORDER_BY_TABLE_ID, UPDATE_ORDER_LIST } f
 
 const API_URL = 'https://api.terracesarkoy.com/api/Order/AddOrder';
 
-export const addToOrder = (order) => {
+export const addToOrder = (order, user) => {
+    console.log('1---------->', order);
     return (dispatch) => {
-        axios.post(API_URL, order)
+        axios.post(API_URL, order, {
+            headers: {
+              Authorization: 'Bearer ' + user.token,
+            },
+          })
         .then(response => {
+            console.log('Order Kaydedildi 2---------->', response.data);
             dispatch ({
                 type: ADD_ORDER,
                 payload: response.data,
@@ -16,9 +22,13 @@ export const addToOrder = (order) => {
     };
 };
 
-export const getOrderList = () => {
+export const getOrderList = (user) => {
     return ( dispatch ) => {
-        axios.get('https://api.terracesarkoy.com/api/Order/GetOrderListByTableIdAll')
+        axios.get('https://api.terracesarkoy.com/api/Order/GetOrderListByTableIdAll', {
+            headers: {
+              Authorization: 'Bearer ' + user.token,
+            },
+          })
         .then(response => {
             dispatch ({
                 type: GET_ORDER_LIST,
@@ -28,9 +38,13 @@ export const getOrderList = () => {
     };
 };
 
-export const updateOrderList = (order) => {
+export const updateOrderList = (order, user) => {
     return (dispatch) => {
-        axios.post('https://api.terracesarkoy.com/api/Order/UpdateOrder', order)
+        axios.post('https://api.terracesarkoy.com/api/Order/UpdateOrder', order, {
+            headers: {
+              Authorization: 'Bearer ' + user.token,
+            },
+          })
         .then(response => {
             dispatch ({
                 type: UPDATE_ORDER_LIST,
@@ -40,9 +54,13 @@ export const updateOrderList = (order) => {
     };
 };
 
-export const getOrderByTableId = (id) => {
+export const getOrderByTableId = (id, user) => {
     return (dispatch) => {
-        axios.get('https://api.terracesarkoy.com/api/Order/GetOrderListByTableIdOpen?id=' + id)
+        axios.get('https://api.terracesarkoy.com/api/Order/GetOrderListByTableIdOpen?id=' + id, {
+            headers: {
+              Authorization: 'Bearer ' + user.token,
+            },
+          })
         .then(response => {
             dispatch ({
                 type: GET_ORDER_BY_TABLE_ID,

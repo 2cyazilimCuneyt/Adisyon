@@ -36,12 +36,17 @@ export const updateOrderDetailList = (orderDetail, orderDetailList) => {
   };
 };
 
-export const saveOrderDetailList = orderDetailList => {
+export const saveOrderDetailList = (orderDetailList, user) => {
   return dispatch => {
     axios
       .post(
         'https://api.terracesarkoy.com/api/Order/UpdateOrderDetailList',
         orderDetailList,
+        {
+          headers: {
+            Authorization: 'Bearer ' + user.token,
+          },
+        },
       )
       .then(response => {
         dispatch({
@@ -52,12 +57,17 @@ export const saveOrderDetailList = orderDetailList => {
   };
 };
 
-export const getOrderDetailList = id => {
+export const getOrderDetailList = (id, user) => {
   return dispatch => {
     axios
       .get(
         'https://api.terracesarkoy.com/api/Order/GetOrderDetailListByOrderId?orderId=' +
           id,
+        {
+          headers: {
+            Authorization: 'Bearer ' + user.token,
+          },
+        },
       )
       .then(response => {
         dispatch({

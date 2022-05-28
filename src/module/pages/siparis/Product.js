@@ -33,11 +33,43 @@ class Product extends Component {
     this.props.updateOrderDetailList(
       orderDetail,
       this.props.activeOrderDetailList,
+      this.props.users,
     );
   };
 
   saveDetailList = () => {
-    this.props.saveOrderDetailList(this.props.activeOrderDetailList);
+    console.log('active order', this.props.activeOrders);
+    if (this.props.activeOrders.orderId === 0) {
+      let order = {
+        orderId: 0,
+        tableId: this.props.activeTables.tableId,
+        date: new Date(),
+        description: '',
+        userId: 0,
+        isClosed: false,
+        isReady: false,
+        totalPrice: 0,
+        closeDate: new Date(),
+      };
+      this.props.addToOrder(order, this.props.users);
+      let orderTime = setTimeout(() => {
+        if (this.props.activeOrders.orderId > 0) {
+          let a = this.props.activeOrderDetailList;
+          a.forEach(element => {
+            element.orderId = this.props.activeOrders.orderId;
+          });
+          console.log('orderTime------------->', orderTime);
+          clearInterval(orderTime);
+          console.log('a-------------------->', a);
+          this.props.saveOrderDetailList(a, this.props.users);
+        }
+      }, 1000);
+    } else {
+      this.props.saveOrderDetailList(
+        this.props.activeOrderDetailList,
+        this.props.users,
+      );
+    }
   };
 
   selectedCount = product => {
@@ -241,6 +273,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
   return {
+    users: state.auth.activeUser,
     products: state.product.products,
     activeRooms: state.room.activeRoom,
     activeTables: state.table.activeTable,

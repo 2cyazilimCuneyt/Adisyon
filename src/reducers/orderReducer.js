@@ -5,7 +5,7 @@ import {
   UPDATE_ORDER_LIST,
 } from '../actions/types';
 const INITIAL_STATE = {
-  activeOrder: {},
+  activeOrder: {orderId: 0},
 };
 
 export default function (state = INITIAL_STATE, action) {

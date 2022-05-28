@@ -11,7 +11,7 @@ const height = Dimensions.get('window').height;
 
 class Menus extends Component {
    UNSAFE_componentWillMount(){
-    this.props.getMenuList();
+    this.props.getMenuList(this.props.users);
    }
 
    onPressed = (menuId) =>{
@@ -21,7 +21,7 @@ class Menus extends Component {
          });
 
          if (selectedMenu.length === 0) {
-            this.props.getProductList(menuId);
+            this.props.getProductList(menuId, this.props.users);
             Actions.Product();
          }
     }
@@ -150,6 +150,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
      return {
+        users: state.auth.activeUser,
         menus:state.menu.menus,
         products: state.product.products,
         activeRoom: state.room.activeRoom,

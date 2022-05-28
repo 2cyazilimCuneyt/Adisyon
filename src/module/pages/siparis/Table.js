@@ -42,7 +42,7 @@ class Table extends Component {
   }
 
   UNSAFE_componentWillMount() {
-    this.props.getRoomList();
+    this.props.getRoomList(this.props.users);
   }
 
   onPressed = roomId => {
@@ -50,33 +50,26 @@ class Table extends Component {
       return item.roomId === roomId;
     });
     this.setState({roomName: a[0].name, roomId: roomId});
-    this.props.getTableList(roomId);
+    this.props.getTableList(roomId, this.props.users);
   };
 
   onPressedTable = table => {
     if (table.statu === 0) {
       this.setState({loading: true});
+
       this.props.activeTable(table);
 
-      let order = {
-        orderId: 0,
-        tableId: table.tableId,
-        date: new Date(),
-        description: '',
-        userId: 0,
-        isClosed: false,
-        isReady: false,
-        totalPrice: 0,
-        closeDate: new Date(),
-      };
-      this.props.addToOrder(order);
       Actions.Menus();
+
       this.setState({loading: false});
     } else if (table.statu === 1) {
       this.setState({loading: true});
-      this.props.getOrderByTableId(table.tableId);
+      this.props.getOrderByTableId(table.tableId, this.props.users);
       setTimeout(() => {
-        this.props.getOrderDetailList(this.props.activeOrders.orderId);
+        this.props.getOrderDetailList(
+          this.props.activeOrders.orderId,
+          this.props.users,
+        );
         this.props.activeTable(table);
         setTimeout(() => {
           Actions.Menus();
@@ -107,11 +100,10 @@ class Table extends Component {
     this.setState({refreshing: true});
 
     setTimeout(() => {
-      this.props.getTableList(this.state.roomId);
+      this.props.getTableList(this.state.roomId, this.props.users);
       this.setState({refreshing: false});
     }, 3000);
   };
-
   render() {
     const {rooms, tables} = this.props;
     return (
@@ -139,7 +131,7 @@ class Table extends Component {
             </View>
             <Text style={{color: '#fff', fontSize: 16, fontWeight: '600'}}>
               {' '}
-              Sipariş /{' '}
+              Sipariş / {this.props.users.firstName + this.props.users.lastName}
             </Text>
           </View>
         </View>
@@ -164,6 +156,12 @@ class Table extends Component {
                 justifyContent: 'space-between',
                 width: width * 0.8,
               }}
+              /* refreshControl={
+                <RefreshControl
+                  refreshing={this.state.refreshing}
+                  onRefresh={this._handleRefresh}
+                />
+              } */
               numColumns={3}
               renderItem={({item, index}) => (
                 <View
@@ -180,10 +178,11 @@ class Table extends Component {
                     {item.statu === 0 ? (
                       <Text style={styles.siparisText}>{item.name}</Text>
                     ) : item.statu === 1 ? (
-                      <Text style={styles.siparisText1}>{item.name}</Text>
-                    ) : (
-                      <Text style={styles.siparisText2}>{item.name}</Text>
-                    )}
+                      <View>
+                        <Text style={styles.siparisText1}>{item.name}</Text>
+                        <Text style={styles.siparisText1}>{item.date}</Text>
+                      </View>
+                    ) : null}
                   </TouchableOpacity>
                 </View>
               )}
@@ -351,8 +350,9 @@ const styles = StyleSheet.create({
 });
 
 const mapToStateProps = state => {
+  console.log('user------->', state.auth.activeUser);
   return {
-    users: state.auth,
+    users: state.auth.activeUser,
     rooms: state.room.rooms,
     tables: state.table.tables,
     activeRooms: state.room.activeRoom,
