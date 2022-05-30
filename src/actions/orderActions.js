@@ -1,11 +1,11 @@
 /* eslint-disable prettier/prettier */
 import axios from 'axios';
-import { ADD_ORDER, GET_ORDER_LIST, GET_ORDER_BY_TABLE_ID, UPDATE_ORDER_LIST } from './types';
+import { ADD_ORDER, GET_ORDER_LIST, GET_ORDER_BY_TABLE_ID, UPDATE_ORDER_LIST, ORDER_INITIAL } from './types';
 
 const API_URL = 'https://api.terracesarkoy.com/api/Order/AddOrder';
 
 export const addToOrder = (order, user) => {
-    console.log('1---------->', order);
+  console.log('1-------------_>',order);
     return (dispatch) => {
         axios.post(API_URL, order, {
             headers: {
@@ -13,7 +13,6 @@ export const addToOrder = (order, user) => {
             },
           })
         .then(response => {
-            console.log('Order Kaydedildi 2---------->', response.data);
             dispatch ({
                 type: ADD_ORDER,
                 payload: response.data,
@@ -69,3 +68,12 @@ export const getOrderByTableId = (id, user) => {
         });
     };
 };
+
+export const orderInitial = () => {
+    return dispatch => {
+      dispatch({
+        type: ORDER_INITIAL,
+      });
+    };
+  };
+  

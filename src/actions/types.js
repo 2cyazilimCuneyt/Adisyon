@@ -25,6 +25,7 @@ export const ACTIVE_ORDER = 'active_order';
 export const GET_ORDER_LIST = 'get_order_list';
 export const GET_ORDER_BY_TABLE_ID = 'get_order_by_table_id';
 export const UPDATE_ORDER_LIST = 'update_order_list';
+export const ORDER_INITIAL = 'order_initial';
 
 export const ADD_ORDER_DETAIL_LIST = 'add_order_detail_list';
 export const ORDER_DETAIL_INITIAL = 'order_detail_initial';

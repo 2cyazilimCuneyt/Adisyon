@@ -38,7 +38,6 @@ class Cart extends Component {
   };
 
   saveDetailList = () => {
-    console.log('active order', this.props.activeOrders);
     if (this.props.activeOrders.orderId === 0) {
       let order = {
         orderId: 0,
@@ -58,9 +57,7 @@ class Cart extends Component {
           a.forEach(element => {
             element.orderId = this.props.activeOrders.orderId;
           });
-          console.log('orderTime------------->', orderTime);
           clearInterval(orderTime);
-          console.log('a-------------------->', a);
           this.props.saveOrderDetailList(a, this.props.users);
         }
       }, 1000);

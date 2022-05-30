@@ -26,7 +26,7 @@ export const updateOrderDetailList = (orderDetail, orderDetailList) => {
     orderDetailList.push(orderDetail);
   }
   orderDetailList = orderDetailList.filter(item => {
-    return item.count !== 0;
+    return item.count > 0;
   });
   return dispatch => {
     dispatch({

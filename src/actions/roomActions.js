@@ -12,7 +12,6 @@ export const getRoomList = user => {
         },
       })
       .then(response => {
-        console.log('1-------------->', response.data);
         dispatch({
           type: ROOM_LIST,
           payload: response.data,

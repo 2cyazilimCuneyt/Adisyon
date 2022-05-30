@@ -119,7 +119,6 @@ export const login = (email, password) => {
 
 
  export const loginKayitli = user => {
-  console.log('1--->', user);
   return dispatch => {
     dispatch({
       type: LOGIN_USER_SUCCESS,

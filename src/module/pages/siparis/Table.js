@@ -27,6 +27,7 @@ class Table extends Component {
       loading: false,
       refreshing: false,
       roomId: 0,
+      loading1: false,
     };
   }
 
@@ -36,15 +37,8 @@ class Table extends Component {
   }
 
   tarihFormat = tarih => {
-    console.log('tarih', tarih);
     tarih = new Date(tarih);
     var date =
-      ('0' + tarih.getDate()).slice(-2) +
-      '.' +
-      ('0' + (tarih.getMonth() + 1)).slice(-2) +
-      '.' +
-      tarih.getFullYear() +
-      ' ' +
       ('0' + tarih.getHours()).slice(-2) +
       ':' +
       ('0' + tarih.getMinutes()).slice(-2);
@@ -69,11 +63,17 @@ class Table extends Component {
 
   onPressedTable = table => {
     if (table.statu === 0) {
-      this.setState({loading: true});
+      this.setState({loading1: true});
 
       this.props.activeTable(table);
 
-      Actions.Menus();
+        this.props.orderInitial();
+        this.props.orderDetailInitial();
+        
+        setTimeout(() => {
+          Actions.Menus();
+          this.setState({loading1: false});
+        }, 3000);
 
       this.setState({loading: false});
     } else if (table.statu === 1) {
@@ -115,6 +115,7 @@ class Table extends Component {
 
     setTimeout(() => {
       this.props.getTableList(this.state.roomId, this.props.users);
+      
       this.setState({refreshing: false});
     }, 3000);
   };
@@ -180,7 +181,7 @@ class Table extends Component {
                     marginVertical: 10,
                   }}>
                   <TouchableOpacity
-                    loading={this.state.loading}
+                    loading={(this.state.loading, this.state.loading1)}
                     style={styles.siparisBox}
                     onPress={() => this.onPressedTable(item)}>
                     {item.statu === 0 ? (
@@ -242,11 +243,19 @@ class Table extends Component {
             </View>
           </View>
         </View>
-        {this.state.loading ? (
+        {this.state.loading || this.state.loading1 ? (
           <ActivityIndicator
             size="large"
             color={'#3ec978'}
             animating={this.state.loading}
+            style={styles.activityIndicator}
+          />
+        ) : null}
+        {this.state.loading1 ? (
+          <ActivityIndicator
+            size="large"
+            color={'#3ec978'}
+            animating={this.state.loading1}
             style={styles.activityIndicator}
           />
         ) : null}
@@ -345,7 +354,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   siparisText2: {
-    fontSize: 10,
+    fontSize: 11,
     fontWeight: '400',
     color: '#434343',
     textAlign: 'center',
@@ -367,7 +376,6 @@ const styles = StyleSheet.create({
 });
 
 const mapToStateProps = state => {
-  console.log('user------->', state.auth.activeUser);
   return {
     users: state.auth.activeUser,
     rooms: state.room.rooms,
@@ -375,6 +383,7 @@ const mapToStateProps = state => {
     activeRooms: state.room.activeRoom,
     activeOrders: state.order.activeOrder,
     activeTables: state.table.activeTable,
+    activeOrderDetailList: state.orderDetail.activeOrderDetailList,
   };
 };
 

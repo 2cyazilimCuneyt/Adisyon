@@ -9,6 +9,7 @@ import {
   Dimensions,
   Image,
   Platform,
+  Alert,
 } from 'react-native';
 import {ProductCard} from '../../component/ProductCard';
 import * as actions from '../../../actions';
@@ -20,6 +21,46 @@ const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
 
 class Product extends Component {
+  saveDetailList = () => {
+    console.log('active order', this.props.activeOrders);
+    if (this.props.activeOrders.orderId === 0) {
+      let order = {
+        orderId: 0,
+        tableId: this.props.activeTables.tableId,
+        date: new Date(),
+        description: '',
+        userId: 0,
+        isClosed: false,
+        isReady: false,
+        totalPrice: 0,
+        closeDate: new Date(),
+      };
+      console.log(order);
+      this.props.addToOrder(order, this.props.users);
+
+      let orderTime = setTimeout(() => {
+        if (this.props.activeOrders.orderId > 0) {
+          let a = this.props.activeOrderDetailList;
+          a.forEach(element => {
+            element.orderId = this.props.activeOrders.orderId;
+          });
+          console.log('orderTime------------->', orderTime);
+          clearInterval(orderTime);
+          console.log('a-------------------->', a);
+          this.props.saveOrderDetailList(a, this.props.users);
+        } else if (this.props.activeOrders.orderId === 0) {
+          console.log('11111111111111111');
+          Alert.alert('Kayıt Başarısız');
+        }
+      }, 1000);
+    } else {
+      this.props.saveOrderDetailList(
+        this.props.activeOrderDetailList,
+        this.props.users,
+      );
+    }
+  };
+
   addToOrderDetails = (product, count) => {
     let orderDetail = {
       orderDetailId: 0,
@@ -35,41 +76,6 @@ class Product extends Component {
       this.props.activeOrderDetailList,
       this.props.users,
     );
-  };
-
-  saveDetailList = () => {
-    console.log('active order', this.props.activeOrders);
-    if (this.props.activeOrders.orderId === 0) {
-      let order = {
-        orderId: 0,
-        tableId: this.props.activeTables.tableId,
-        date: new Date(),
-        description: '',
-        userId: 0,
-        isClosed: false,
-        isReady: false,
-        totalPrice: 0,
-        closeDate: new Date(),
-      };
-      this.props.addToOrder(order, this.props.users);
-      let orderTime = setTimeout(() => {
-        if (this.props.activeOrders.orderId > 0) {
-          let a = this.props.activeOrderDetailList;
-          a.forEach(element => {
-            element.orderId = this.props.activeOrders.orderId;
-          });
-          console.log('orderTime------------->', orderTime);
-          clearInterval(orderTime);
-          console.log('a-------------------->', a);
-          this.props.saveOrderDetailList(a, this.props.users);
-        }
-      }, 1000);
-    } else {
-      this.props.saveOrderDetailList(
-        this.props.activeOrderDetailList,
-        this.props.users,
-      );
-    }
   };
 
   selectedCount = product => {
@@ -156,37 +162,39 @@ class Product extends Component {
           keyExtractor={item => item.productId}
           style={styles.menuContainerBox}
         />
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity
-            style={styles.buttonBox}
-            onPress={() => this.saveDetailList()}>
-            <Image source={require('../../assets/onay.png')} />
-            <Text style={{fontSize: 19, color: '#fff', fontWeight: '600'}}>
-              Kaydet
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => Actions.Cart(this.props.activeOrderDetailList)}
-            style={styles.buttonBox1}>
-            <View
-              style={{
-                borderColor: '#fff',
-                borderWidth: 2,
-                justifyContent: 'center',
-                alignItems: 'center',
-                height: 30,
-                width: 30,
-                borderRadius: 15,
-              }}>
-              <Text style={{fontSize: 16, color: '#fff', fontWeight: '600'}}>
-                {this.props.activeOrderDetailList.length}
+        {this.props.activeOrderDetailList.length > 0 ? (
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity
+              style={styles.buttonBox}
+              onPress={() => this.saveDetailList()}>
+              <Image source={require('../../assets/onay.png')} />
+              <Text style={{fontSize: 19, color: '#fff', fontWeight: '600'}}>
+                Kaydet
               </Text>
-            </View>
-            <Text style={{fontSize: 19, color: '#fff', fontWeight: '600'}}>
-              Sipariş Detay
-            </Text>
-          </TouchableOpacity>
-        </View>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => Actions.Cart(this.props.activeOrderDetailList)}
+              style={styles.buttonBox1}>
+              <View
+                style={{
+                  borderColor: '#fff',
+                  borderWidth: 2,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  height: 30,
+                  width: 30,
+                  borderRadius: 15,
+                }}>
+                <Text style={{fontSize: 16, color: '#fff', fontWeight: '600'}}>
+                  {this.props.activeOrderDetailList.length}
+                </Text>
+              </View>
+              <Text style={{fontSize: 19, color: '#fff', fontWeight: '600'}}>
+                Sipariş Detay
+              </Text>
+            </TouchableOpacity>
+          </View>
+        ) : null}
       </View>
     );
   }

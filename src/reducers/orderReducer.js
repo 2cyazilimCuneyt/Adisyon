@@ -3,6 +3,7 @@ import {
   GET_ORDER_LIST,
   GET_ORDER_BY_TABLE_ID,
   UPDATE_ORDER_LIST,
+  ORDER_INITIAL,
 } from '../actions/types';
 const INITIAL_STATE = {
   activeOrder: {orderId: 0},
@@ -18,6 +19,8 @@ export default function (state = INITIAL_STATE, action) {
       return {...state, activeOrder: action.payload};
     case UPDATE_ORDER_LIST:
       return {...state, activeOrder: action.payload};
+    case ORDER_INITIAL:
+      return state;
     default:
       return state;
   }
