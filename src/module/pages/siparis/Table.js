@@ -37,20 +37,18 @@ class Table extends Component {
 
   tarihFormat = tarih => {
     console.log('tarih', tarih);
-    var a = new Date();
-    // eslint-disable-next-line no-undef
-    /* date =
-      a.getFullYear() +
-      '-' +
-      (a.getMonth() + 1) +
-      '-' +
-      a.getDate() +
+    tarih = new Date(tarih);
+    var date =
+      ('0' + tarih.getDate()).slice(-2) +
+      '.' +
+      ('0' + (tarih.getMonth() + 1)).slice(-2) +
+      '.' +
+      tarih.getFullYear() +
       ' ' +
-      a.getHours() +
+      ('0' + tarih.getHours()).slice(-2) +
       ':' +
-      a.getMinutes(); */
-    console.log('A', a);
-    return a;
+      ('0' + tarih.getMinutes()).slice(-2);
+    return date;
   };
 
   _storeData = async () => {
@@ -190,7 +188,9 @@ class Table extends Component {
                     ) : item.statu === 1 ? (
                       <View>
                         <Text style={styles.siparisText1}>{item.name}</Text>
-                        <Text style={styles.siparisText2}>{item.date}</Text>
+                        <Text style={styles.siparisText2}>
+                          {this.tarihFormat(item.date)}
+                        </Text>
                         <Text style={styles.siparisText2}>
                           {item.firstName + item.lastName}
                         </Text>
@@ -350,6 +350,7 @@ const styles = StyleSheet.create({
     color: '#434343',
     textAlign: 'center',
     width: width * 0.18,
+    marginTop: 2,
   },
   activityIndicator: {
     width: width,
