@@ -8,14 +8,13 @@ import {
   Dimensions,
   FlatList,
   Platform,
-  RefreshControl,
   ActivityIndicator,
-  Button,
 } from 'react-native';
 import {Actions} from 'react-native-router-flux';
 import {connect} from 'react-redux';
 import * as actions from '../../../actions';
 import ModalDropdown from 'react-native-modal-dropdown';
+import AsyncStorage from '@react-native-community/async-storage';
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
@@ -23,17 +22,7 @@ const height = Dimensions.get('window').height;
 class Table extends Component {
   constructor() {
     super();
-
-    var today = new Date(),
-      date =
-        today.getFullYear() +
-        '-' +
-        (today.getMonth() + 1) +
-        '-' +
-        today.getDate();
-
     this.state = {
-      date: date,
       roomName: 'Oda Seçiniz..',
       loading: false,
       refreshing: false,
@@ -43,7 +32,34 @@ class Table extends Component {
 
   UNSAFE_componentWillMount() {
     this.props.getRoomList(this.props.users);
+    this._storeData();
   }
+
+  tarihFormat = tarih => {
+    console.log('tarih', tarih);
+    var a = new Date();
+    // eslint-disable-next-line no-undef
+    /* date =
+      a.getFullYear() +
+      '-' +
+      (a.getMonth() + 1) +
+      '-' +
+      a.getDate() +
+      ' ' +
+      a.getHours() +
+      ':' +
+      a.getMinutes(); */
+    console.log('A', a);
+    return a;
+  };
+
+  _storeData = async () => {
+    try {
+      await AsyncStorage.setItem('@User:key', JSON.stringify(this.props.users));
+    } catch (error) {
+      console.log('error', error);
+    }
+  };
 
   onPressed = roomId => {
     let a = this.props.rooms.filter(item => {
@@ -156,12 +172,6 @@ class Table extends Component {
                 justifyContent: 'space-between',
                 width: width * 0.8,
               }}
-              /* refreshControl={
-                <RefreshControl
-                  refreshing={this.state.refreshing}
-                  onRefresh={this._handleRefresh}
-                />
-              } */
               numColumns={3}
               renderItem={({item, index}) => (
                 <View
@@ -180,7 +190,10 @@ class Table extends Component {
                     ) : item.statu === 1 ? (
                       <View>
                         <Text style={styles.siparisText1}>{item.name}</Text>
-                        <Text style={styles.siparisText1}>{item.date}</Text>
+                        <Text style={styles.siparisText2}>{item.date}</Text>
+                        <Text style={styles.siparisText2}>
+                          {item.firstName + item.lastName}
+                        </Text>
                       </View>
                     ) : null}
                   </TouchableOpacity>
@@ -329,11 +342,14 @@ const styles = StyleSheet.create({
     fontSize: 17,
     fontWeight: '700',
     color: '#FF554A',
+    textAlign: 'center',
   },
   siparisText2: {
-    fontSize: 17,
-    fontWeight: '700',
-    color: '#5CA026',
+    fontSize: 10,
+    fontWeight: '400',
+    color: '#434343',
+    textAlign: 'center',
+    width: width * 0.18,
   },
   activityIndicator: {
     width: width,

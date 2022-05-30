@@ -16,6 +16,7 @@ import {
   login,
   initRememberMe,
   toggleRememberMe,
+  loginKayitli,
 } from '../../../actions';
 import AsyncStorage from '@react-native-community/async-storage';
 import CheckBox from '@react-native-community/checkbox';
@@ -35,24 +36,28 @@ class LoginForm extends Component {
   }
 
   UNSAFE_componentWillMount() {
-    this.props.initRememberMe();
+    /* let user = this._retrieveData();
+    this.props.loginKayitli(user); */
+    //this.props.initRememberMe();
   }
+
+  _retrieveData = async () => {
+    try {
+      let value = await AsyncStorage.getItem('@User:key');
+      if (value !== null) {
+        value = JSON.parse(value);
+        return value;
+      }
+    } catch (error) {
+      // Error retrieving data
+    }
+  };
 
   GirisYap = async () => {
     //Keyboard.dismiss();
+
     if (this.props.email.length > 0 || this.props.password.length > 0) {
-      console.log(
-        'log: ' + this.props.email,
-        this.props.password,
-        await AsyncStorage.getItem('fcmToken'),
-        this.state.check,
-      );
-      this.props.login(
-        this.props.email,
-        this.props.password,
-        await AsyncStorage.getItem('fcmToken'),
-        this.state.check,
-      );
+      this.props.login(this.props.email, this.props.password, this.state.check);
     } else {
       Alert.alert('Uyarı', 'Lütfen bilgileri eksiksiz doldurunuz');
     }
@@ -175,4 +180,5 @@ export default connect(mapStateToProps, {
   login,
   initRememberMe,
   toggleRememberMe,
+  loginKayitli,
 })(LoginForm);
