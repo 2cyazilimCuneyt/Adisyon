@@ -44,6 +44,7 @@ export default class CustomerPage extends Component {
               <Text style={styles.waiterText}>Garson Çağır</Text>
             </TouchableOpacity>
           </View>
+          <Text style={{fontSize: 9, textAlign: 'center', marginBottom: 50}}>Versiyon 1.0</Text>
         </ImageBackground>
       </View>
     );
