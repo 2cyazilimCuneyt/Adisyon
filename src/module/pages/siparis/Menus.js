@@ -57,6 +57,32 @@ class Menus extends Component {
                     keyExtractor={(item)=> item.menuId}
                     style={styles.menuContainerBox}
                 />
+
+{this.props.activeOrderDetailList.length > 0 ? (
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity
+              onPress={() => Actions.Cart(this.props.activeOrderDetailList)}
+              style={styles.buttonBox1}>
+              <View
+                style={{
+                  borderColor: '#fff',
+                  borderWidth: 2,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  height: 30,
+                  width: 30,
+                  borderRadius: 15,
+                }}>
+                <Text style={{fontSize: 16, color: '#fff', fontWeight: '600'}}>
+                  {this.props.activeOrderDetailList.length}
+                </Text>
+              </View>
+              <Text style={{fontSize: 19, color: '#fff', fontWeight: '600'}}>
+                Sipariş Detay
+              </Text>
+            </TouchableOpacity>
+          </View>
+        ) : null}
             </View>
         )
     }
